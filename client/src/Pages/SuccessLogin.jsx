@@ -1,7 +1,6 @@
 import React, { useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { toast } from 'react-toastify';
 import AuthContext from '../Authorisation/AuthProvider';
 
 const SuccessLogin = () => {

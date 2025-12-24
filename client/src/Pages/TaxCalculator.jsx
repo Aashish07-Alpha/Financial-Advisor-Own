@@ -89,6 +89,7 @@ const TaxCalculator = () => {
     return Math.round(currentTax * 0.2);
   };
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     calculateTax();
   }, [annualIncome, otherIncome, taxRegime]);

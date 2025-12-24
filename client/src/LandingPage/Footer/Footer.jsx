@@ -43,10 +43,10 @@ const Footer = () => {
             <div className="col-span-2 sm:col-span-1">
               <p className="font-medium text-gray-900">Financial Services</p>
               <ul className="mt-6 space-y-4 text-sm">
-                <li><a href="#" className="text-gray-700 hover:opacity-75"> Investment Planning </a></li>
-                <li><a href="#" className="text-gray-700 hover:opacity-75"> Retirement Strategies </a></li>
-                <li><a href="#" className="text-gray-700 hover:opacity-75"> Wealth Management </a></li>
-                <li><a href="#" className="text-gray-700 hover:opacity-75"> Tax Optimization </a></li>
+                <li><a href="/ppf" className="text-gray-700 hover:opacity-75"> Investment Planning </a></li>
+                <li><a href="/ppf" className="text-gray-700 hover:opacity-75"> Retirement Strategies </a></li>
+                <li><a href="/advisor" className="text-gray-700 hover:opacity-75"> Wealth Management </a></li>
+                <li><a href="/ppf" className="text-gray-700 hover:opacity-75"> Tax Optimization </a></li>
               </ul>
             </div>
 
@@ -54,9 +54,9 @@ const Footer = () => {
             <div className="col-span-2 sm:col-span-1">
               <p className="font-medium text-gray-900">Company</p>
               <ul className="mt-6 space-y-4 text-sm">
-                <li><a href="#" className="text-gray-700 hover:opacity-75"> About Us </a></li>
-                <li><a href="#" className="text-gray-700 hover:opacity-75"> Our Advisors </a></li>
-                <li><a href="#" className="text-gray-700 hover:opacity-75"> Careers </a></li>
+                <li><a href="/" className="text-gray-700 hover:opacity-75"> About Us </a></li>
+                <li><a href="/advisor" className="text-gray-700 hover:opacity-75"> Our Advisors </a></li>
+                <li><a href="/" className="text-gray-700 hover:opacity-75"> Careers </a></li>
               </ul>
             </div>
 
@@ -64,9 +64,9 @@ const Footer = () => {
             <div className="col-span-2 sm:col-span-1">
               <p className="font-medium text-gray-900">Resources</p>
               <ul className="mt-6 space-y-4 text-sm">
-                <li><a href="#" className="text-gray-700 hover:opacity-75"> Blog </a></li>
-                <li><a href="#" className="text-gray-700 hover:opacity-75"> Financial Tools </a></li>
-                <li><a href="#" className="text-gray-700 hover:opacity-75"> FAQs </a></li>
+                <li><a href="/learn" className="text-gray-700 hover:opacity-75"> Blog </a></li>
+                <li><a href="/ppf" className="text-gray-700 hover:opacity-75"> Financial Tools </a></li>
+                <li><a href="/" className="text-gray-700 hover:opacity-75"> FAQs </a></li>
               </ul>
             </div>
 
@@ -74,9 +74,9 @@ const Footer = () => {
             <div className="col-span-2 sm:col-span-1">
               <p className="font-medium text-gray-900">Legal</p>
               <ul className="mt-6 space-y-4 text-sm">
-                <li><a href="#" className="text-gray-700 hover:opacity-75"> Privacy Policy </a></li>
-                <li><a href="#" className="text-gray-700 hover:opacity-75"> Terms of Service </a></li>
-                <li><a href="#" className="text-gray-700 hover:opacity-75"> Disclosures </a></li>
+                <li><button type="button" className="text-gray-700 hover:opacity-75"> Privacy Policy </button></li>
+                <li><button type="button" className="text-gray-700 hover:opacity-75"> Terms of Service </button></li>
+                <li><button type="button" className="text-gray-700 hover:opacity-75"> Disclosures </button></li>
               </ul>
             </div>
 
@@ -84,27 +84,27 @@ const Footer = () => {
             <ul className="col-span-2 flex justify-start gap-6 lg:col-span-5 lg:justify-end">
               {/* Facebook */}
               <li>
-                <a href="#" className="text-gray-700 hover:opacity-75" aria-label="Facebook">
+                <button type="button" className="text-gray-700 hover:opacity-75" aria-label="Facebook">
                   <svg className="size-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                     <path d="..." />
                   </svg>
-                </a>
+                </button>
               </li>
               {/* Instagram */}
               <li>
-                <a href="#" className="text-gray-700 hover:opacity-75" aria-label="Instagram">
+                <button type="button" className="text-gray-700 hover:opacity-75" aria-label="Instagram">
                   <svg className="size-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                     <path d="..." />
                   </svg>
-                </a>
+                </button>
               </li>
               {/* LinkedIn */}
               <li>
-                <a href="#" className="text-gray-700 hover:opacity-75" aria-label="LinkedIn">
+                <button type="button" className="text-gray-700 hover:opacity-75" aria-label="LinkedIn">
                   <svg className="size-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                     <path d="..." />
                   </svg>
-                </a>
+                </button>
               </li>
             </ul>
           </div>
@@ -116,15 +116,15 @@ const Footer = () => {
 
         <ul className="mt-8 flex flex-wrap justify-start gap-4 text-xs sm:mt-0 lg:justify-end">
           <li>
-            <a href="#" className="text-gray-500 transition hover:opacity-75"> Terms & Conditions </a>
+            <button type="button" className="text-gray-500 transition hover:opacity-75"> Terms & Conditions </button>
           </li>
 
           <li>
-            <a href="#" className="text-gray-500 transition hover:opacity-75"> Privacy Policy </a>
+            <button type="button" className="text-gray-500 transition hover:opacity-75"> Privacy Policy </button>
           </li>
 
           <li>
-            <a href="#" className="text-gray-500 transition hover:opacity-75"> Cookies </a>
+            <button type="button" className="text-gray-500 transition hover:opacity-75"> Cookies </button>
           </li>
         </ul>
       </div>

@@ -28,7 +28,6 @@ const QASessions = () => {
   const [showRegistrationModal, setShowRegistrationModal] = useState(false);
   const [selectedSession, setSelectedSession] = useState(null);
   const [creating, setCreating] = useState(false);
-  const [registering, setRegistering] = useState(false);
   const [form, setForm] = useState({
     title: '',
     description: '',
@@ -54,10 +53,7 @@ const QASessions = () => {
   const [formSuccess, setFormSuccess] = useState('');
   const [registrationError, setRegistrationError] = useState('');
   const [registrationSuccess, setRegistrationSuccess] = useState('');
-  const { user, isAuthenticated, loading: authLoading } = useContext(AuthContext);
-
-  // Remove hardcoded admin flag - use proper authentication
-  const isAdmin = user?.role === 'admin' || false;
+  const { user } = useContext(AuthContext);
 
   // Add edit modal state
   const [showEditModal, setShowEditModal] = useState(false);
@@ -179,7 +175,7 @@ const QASessions = () => {
         throw new Error(errorMessage);
       }
 
-      const result = await res.json();
+      await res.json();
 
       setFormSuccess('Meeting created successfully!');
       setShowCreateModal(false);
@@ -262,7 +258,7 @@ const QASessions = () => {
         throw new Error(errorMessage);
       }
 
-      const result = await res.json();
+      await res.json();
 
       setRegistrationSuccess('Registration successful! You can now join the meeting.');
       
@@ -297,7 +293,7 @@ const QASessions = () => {
       });
       
       if (!res.ok) {
-        const errorText = await res.text();
+        await res.text();
         throw new Error('Failed to fetch attendees');
       }
       
@@ -359,7 +355,7 @@ const QASessions = () => {
         throw new Error(errorMessage);
       }
 
-      const result = await res.json();
+      await res.json();
 
       setShowEditModal(false);
       setEditingId(null);

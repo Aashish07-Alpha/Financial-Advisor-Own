@@ -1,4 +1,3 @@
-import women1 from "./women1.webp";
 import women2 from "./women2.jpg";
 import man1 from "./man1.jpg";
 import man2 from "./man2.jpg";

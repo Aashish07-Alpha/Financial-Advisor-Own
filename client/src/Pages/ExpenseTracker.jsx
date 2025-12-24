@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BarChart3, Plus, Upload, History, Home, TrendingUp, Settings, Menu, X } from 'lucide-react';
+import { BarChart3, Plus, Upload, History, Home, Menu, X } from 'lucide-react';
 import NavBar from '../components/NavBar';
 import Dashboard from '../components/Dashboard';
 import TransactionForm from '../components/TransactionForm';

@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Mic, User, Bot, Volume2, Send, X, Loader2, Sparkles, Lock } from 'lucide-react';
+import { Mic, User, Send, Loader2, Sparkles } from 'lucide-react';
 import SimpleIcons from '../components/SimpleIcons';
 
 const Chatbot = () => {

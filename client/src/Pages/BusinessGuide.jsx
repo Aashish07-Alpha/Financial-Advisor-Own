@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { 
-  Map, BookCheck, TrendingUp, User, Heart, Sprout, ScaleIcon, 
+  Map, BookCheck, TrendingUp, Heart, Sprout, ScaleIcon, 
   ArrowRight, ChevronDown, ChevronUp, DollarSign, Shield, 
   Workflow, Building, Bird, LineChart, AlertTriangle, Info, 
-  Target, BookOpen, Egg, Leaf, Hammer, Milk, Store, Drumstick, 
+  Target, Leaf, Hammer, Milk, Store, Drumstick, 
   Fish, Scissors, Phone, Bike, Factory, Utensils, Coffee, 
-  Brush, Truck, Zap, ShoppingBag, Wrench, Palette, Car
+  Brush, Truck, Zap, ShoppingBag, Wrench, Car
 } from 'lucide-react';
 
 const BusinessGuide = () => {

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Upload, FileText, Image, File, X, CheckCircle, AlertCircle, Loader2, Eye, Edit, Save } from 'lucide-react';
+import { Upload, FileText, Image, File, X, CheckCircle, Loader2, Save } from 'lucide-react';
 
 const ReceiptUpload = ({ addReceiptTransaction, addMultipleTransactionsFromReceipt }) => {
     const [selectedFile, setSelectedFile] = useState(null);
@@ -136,10 +136,7 @@ const ReceiptUpload = ({ addReceiptTransaction, addMultipleTransactionsFromRecei
             // Simulate processing time
             await new Promise(resolve => setTimeout(resolve, 2000));
 
-            // Generate mock data based on file type
-            const isImage = selectedFile.type.startsWith('image/');
-            const isPDF = selectedFile.type === 'application/pdf';
-            
+            // Generate mock data
             const mockTransactions = [
                 {
                     id: 0,

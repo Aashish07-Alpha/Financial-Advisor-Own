@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import "./Hero.css";
-import dark_arrow from "../../assets/dark-arrow.png";
 import { useNavigate } from "react-router-dom";
 
 const features = [

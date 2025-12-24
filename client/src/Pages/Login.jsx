@@ -9,7 +9,7 @@ import { useAuthState } from '../hooks/useAuthState';
 const LoginPage = () => {
   const navigate = useNavigate();
   const { login } = useContext(AuthContext);
-  const { isAuthenticated, user } = useAuthState();
+  const { } = useAuthState();
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
     email: '',
@@ -66,6 +66,7 @@ const LoginPage = () => {
     }, 500); // Longer delay to prevent race conditions
     
     return () => clearTimeout(timer);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []); // Removed navigate from dependencies to prevent multiple executions
 
   const handleInputChange = (e) => {

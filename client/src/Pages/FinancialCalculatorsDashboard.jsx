@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import NavBar from "../components/NavBar";
-import Footer from "../components/Footer";
 import PPFCalculator from './PpfCalculator';
 import SIPCalculator from './SIPCalculator';
 import EMICalculator from './EMICalculator';

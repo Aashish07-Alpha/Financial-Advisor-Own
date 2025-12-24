@@ -91,6 +91,7 @@ const EMICalculator = () => {
     );
   };
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     calculateEMI();
   }, [principalAmount, interestRate, loanTenure]);

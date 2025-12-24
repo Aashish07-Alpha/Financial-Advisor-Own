@@ -233,7 +233,7 @@ export default function FinancialAdvisorChatbotUi() {
       }
       
       const lines = part.split('\n').filter(l => l.trim());
-      const isBulletList = lines.some(l => l.trim().match(/^[•\-\*]/));
+      const isBulletList = lines.some(l => l.trim().match(/^[•\-*]/));
       
       if (isBulletList) {
         return (
@@ -241,8 +241,8 @@ export default function FinancialAdvisorChatbotUi() {
             {lines.map((line, i) => {
               // Remove all bullet-like symbols and clean the text
               const text = line
-                .replace(/^[•\-\*]\s*/, '')
-                .replace(/\[|\]/g, '')
+                .replace(/^[•\-*]\s*/, '')
+                .replace(/[\[\]]/g, '')
                 .trim();
               if (!text) return null;
               return (
@@ -257,7 +257,7 @@ export default function FinancialAdvisorChatbotUi() {
       }
       
       // Clean paragraph text
-      const cleanPart = part.replace(/\[|\]/g, '');
+      const cleanPart = part.replace(/[\[\]]/g, '');
       return <p key={idx} className="text-gray-700 leading-relaxed mb-3">{cleanPart}</p>;
     });
   };
@@ -265,7 +265,7 @@ export default function FinancialAdvisorChatbotUi() {
   const stripMarkdown = (text) => {
     if (!text) return "";
     return text
-      .replace(/\*\*(.*?)\*\*/g, "$1")
+      .replace(/\*{2}(.*?)\*{2}/g, "$1")
       .replace(/_(.*?)_/g, "$1")
       .replace(/`(.*?)`/g, "$1")
       .replace(/#+\s/g, "")

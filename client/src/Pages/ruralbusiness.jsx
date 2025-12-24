@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { 
-  ChevronRight, Globe, Store, Utensils, Scissors, 
+  ChevronRight, Store, Utensils, Scissors, 
   Leaf, Fish, Phone, Bike, Factory, 
   Truck, Coffee, Brush, Milk, Drumstick, 
   Egg, BookCheck, ScaleIcon, Shield, Wrench, Map, Zap, Sprout,
   Coins, TrendingUp, PiggyBank, ArrowUpRight, Users, Building, Landmark, Smartphone,
-  Home, Car, GraduationCap, Heart, Briefcase, Globe2, ShieldCheck, Award, Target, DollarSign, Workflow
+  Home, Car, GraduationCap, Heart, Globe2, ShieldCheck, Award, Target, DollarSign, Workflow
 } from 'lucide-react';
 
 const RuralBusinessOpportunities = () => {
@@ -918,9 +918,9 @@ const RuralBusinessOpportunities = () => {
             </p>
             <div className="flex gap-4">
               {['Facebook', 'Twitter', 'LinkedIn'].map(social => (
-                <a key={social} href="#" className="text-sm text-gray-500 hover:text-emerald-600 transition-colors duration-300">
+                <button key={social} type="button" className="text-sm text-gray-500 hover:text-emerald-600 transition-colors duration-300">
                   {social}
-                </a>
+                </button>
               ))}
             </div>
           </div>

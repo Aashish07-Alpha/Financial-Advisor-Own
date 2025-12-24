@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Map, BookCheck, TrendingUp , User ,Heart, Sprout, ScaleIcon ,ArrowRight, ChevronDown, ChevronUp, DollarSign, Shield, Workflow, Building, Bird, LineChart, AlertTriangle, Info, Target, BookOpen, Egg, Leaf, Hammer} from 'lucide-react';
+import { Heart, Sprout, ScaleIcon, ArrowRight, ChevronDown, ChevronUp, DollarSign, Shield, Workflow, Building, Bird, LineChart, AlertTriangle, Info, Target, Leaf, Hammer } from 'lucide-react';
 
 const PoultryFarmGuide = () => {
   const [activeSection, setActiveSection] = useState('overview');

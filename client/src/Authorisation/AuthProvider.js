@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect } from "react";
+import React, { createContext, useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import { toast } from 'react-toastify';
 import { clearAuthData, setAuthData, getAuthData } from "../utils/authUtils";
@@ -130,7 +130,7 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const verifyAuth = async () => {
+  const verifyAuth = useCallback(async () => {
     try {
       console.log('🔍 Verifying authentication with server...');
       const response = await axios.get(`http://localhost:8080/api/auth/verify`, {
@@ -161,7 +161,7 @@ export const AuthProvider = ({ children }) => {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
   useEffect(() => {
     // Always verify with server first, regardless of localStorage
@@ -183,7 +183,7 @@ export const AuthProvider = ({ children }) => {
         loading: false
       });
     }
-  }, []);
+  }, [verifyAuth]);
 
   // Add listeners for auth state changes
   useEffect(() => {

@@ -81,6 +81,7 @@ const SIPCalculator = () => {
     );
   };
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     calculateSIP();
   }, [monthlyInvestment, timePeriod, expectedReturn]);

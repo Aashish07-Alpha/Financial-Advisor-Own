@@ -106,6 +106,7 @@ const PPFCalculator = () => {
     );
   };
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     calculatePPF();
   }, [yearlyInvestment, timePeriod, rateOfInterest]);

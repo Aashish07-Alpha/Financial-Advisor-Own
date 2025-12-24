@@ -11,7 +11,6 @@ const ExtractedFields = ({ json, summary }) => {
   const [showAudioSettings, setShowAudioSettings] = useState(false);
   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
-  const [currentUtterance, setCurrentUtterance] = useState(null);
 
   // Clean up speech synthesis on unmount
   useEffect(() => {
@@ -296,7 +295,6 @@ const ExtractedFields = ({ json, summary }) => {
         
         utterance.onend = () => {
           setIsPlaying(false);
-          setCurrentUtterance(null);
         };
         
         utterance.onerror = (event) => {
@@ -304,18 +302,13 @@ const ExtractedFields = ({ json, summary }) => {
           if (event.error === 'interrupted' || event.error === 'canceled') {
             console.log('Speech interrupted by user');
             setIsPlaying(false);
-            setCurrentUtterance(null);
             return;
           }
           
           console.error('Speech synthesis error:', event);
           setAudioError('Audio playback failed. Please try again.');
           setIsPlaying(false);
-          setCurrentUtterance(null);
         };
-        
-        // Save current utterance reference
-        setCurrentUtterance(utterance);
         
         // Speak the utterance
         window.speechSynthesis.speak(utterance);
@@ -326,7 +319,6 @@ const ExtractedFields = ({ json, summary }) => {
       console.error('Audio error:', error);
       setAudioError('Audio feature not supported in this browser. Please use Chrome or Edge.');
       setIsPlaying(false);
-      setCurrentUtterance(null);
     }
   };
 
@@ -336,7 +328,6 @@ const ExtractedFields = ({ json, summary }) => {
     }
     setIsPlaying(false);
     setAudioError('');
-    setCurrentUtterance(null);
   };
 
   const handleVolumeChange = (e) => {

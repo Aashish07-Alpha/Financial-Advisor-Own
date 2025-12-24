@@ -3,7 +3,7 @@ import {
     BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
     PieChart, Pie, Cell, LineChart, Line, Area, AreaChart, ComposedChart
 } from 'recharts';
-import { TrendingUp, TrendingDown, DollarSign, Calendar, Filter } from 'lucide-react';
+import { TrendingUp, TrendingDown, Calendar } from 'lucide-react';
 
 const AnalyticsDashboard = ({ transactions, stats }) => {
     const [timeRange, setTimeRange] = useState('6months');
