@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Search, RefreshCcw, Globe, Briefcase, User } from "lucide-react";
 import NavBar from "../components/NavBar";
+import ErrorPage from "../components/ErrorPage";
 
 // Animation CSS for fade-in and card hover
 const fadeInStyle = `
@@ -18,6 +19,7 @@ const NewsPage = () => {
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState("business-hindi");
   const [searchQuery, setSearchQuery] = useState("");
+  const [error, setError] = useState(false);
 
   const fetchNews = async (type, query = "") => {
     const API_KEY = process.env.REACT_APP_NEWS_API_KEY;
@@ -43,10 +45,23 @@ const NewsPage = () => {
     }
 
     setLoading(true);
-    const response = await fetch(url);
-    const data = await response.json();
-    setArticles(data.articles.filter((article) => article.source.id));
-    setLoading(false);
+    setError(false);
+    try {
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error('Failed to fetch news');
+      }
+      const data = await response.json();
+      if (data.status === 'error') {
+        throw new Error(data.message || 'API Error');
+      }
+      setArticles(data.articles.filter((article) => article.source.id));
+    } catch (err) {
+      console.error('Error fetching news:', err);
+      setError(true);
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -71,9 +86,14 @@ const NewsPage = () => {
 
   return (
     <>
-      {/* Animation style injected locally */}
-      <style>{fadeInStyle}</style>
-      <NavBar language="en" toggleLanguage={() => {}} />
+      {/* Show error page if API fails */}
+      {error ? (
+        <ErrorPage />
+      ) : (
+        <>
+          {/* Animation style injected locally */}
+          <style>{fadeInStyle}</style>
+          <NavBar language="en" toggleLanguage={() => {}} />
 
       <div className="min-h-screen bg-gradient-to-br py-16 from-green-50 to-white">
         <div className="container mx-auto px-4 py-8">
@@ -209,6 +229,8 @@ const NewsPage = () => {
           )}
         </div>
       </div>
+        </>
+      )}
     </>
   );
 };
