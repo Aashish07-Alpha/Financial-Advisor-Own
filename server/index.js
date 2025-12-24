@@ -62,7 +62,9 @@ const allowedOrigins = [
   "http://127.0.0.1:3000",
   "http://127.0.0.1:8080",
   "https://finadvisior.vercel.app",
-  "https://finadvisorapp.vercel.app"
+  "https://finadvisorapp.vercel.app",
+  "https://financial-advisor-own.vercel.app",
+  "https://financial-advisor-own-5x5f.vercel.app"
 ];
 
 app.use(cors({
@@ -80,7 +82,8 @@ app.use(cors({
     if (
       allowedOrigins.includes(origin) ||
       /^https:\/\/.*\.finadvisior\.vercel\.app$/.test(origin) ||
-      /^https:\/\/.*\.finadvisorapp\.vercel\.app$/.test(origin)
+      /^https:\/\/.*\.finadvisorapp\.vercel\.app$/.test(origin) ||
+      /^https:\/\/.*financial-advisor-own.*\.vercel\.app$/.test(origin)
     ) {
       return callback(null, true);
     } else {
