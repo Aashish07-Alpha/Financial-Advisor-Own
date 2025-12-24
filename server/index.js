@@ -116,6 +116,22 @@ app.use('/api/meetings', meetingsRoutes);
 app.use('/api/voice-navigation', voiceNavigationRoutes);
 app.use('/api/voice-analytics', voiceAnalyticsRoutes);
 
+// Root route
+app.get("/", (req, res) => {
+  res.json({ 
+    status: "running",
+    message: "Financial Advisor API Server",
+    endpoints: {
+      auth: "/api/auth",
+      financialAdvice: "/api/financial-advice",
+      transactions: "/api/transactions",
+      communities: "/api/communities",
+      schemes: "/api/schemes",
+      ocr: "/api/ocr"
+    }
+  });
+});
+
 app.get("/ping", (req, res) => {
   res.send("Hello Server");
 });
