@@ -1,0 +1,798 @@
+/* Professional Hero Styles */
+.hero-professional {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: linear-gradient(135deg, #f0fdf4 0%, #ffffff 50%, #ecfdf5 100%);
+}
+
+/* Grid Pattern Background */
+.bg-grid-pattern {
+  background-image: 
+    linear-gradient(rgba(34, 197, 94, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(34, 197, 94, 0.1) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+/* Compact Feature Cards */
+.compact-feature-card {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid #e5e7eb;
+  background: #ffffff;
+  position: relative;
+  overflow: hidden;
+}
+
+.compact-feature-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #22c55e, #16a34a);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.compact-feature-card:hover::before {
+  transform: scaleX(1);
+}
+
+.compact-feature-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px -5px rgba(0, 0, 0, 0.1), 0 4px 10px -5px rgba(0, 0, 0, 0.04);
+  border-color: #22c55e;
+}
+
+/* Enhanced Feature Cards */
+.enhanced-feature-card {
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid #e5e7eb;
+  background: #ffffff;
+  position: relative;
+  overflow: hidden;
+}
+
+.enhanced-feature-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #22c55e, #16a34a, #15803d);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.enhanced-feature-card:hover::before {
+  transform: scaleX(1);
+}
+
+.enhanced-feature-card:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.15), 0 10px 20px -5px rgba(0, 0, 0, 0.1);
+  border-color: #22c55e;
+}
+
+/* Professional Feature Cards */
+.feature-card-professional {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid #e5e7eb;
+  background: #ffffff;
+}
+
+.feature-card-professional:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  border-color: #22c55e;
+}
+
+/* Professional Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+/* Animation Delays */
+.animation-delay-200 {
+  animation-delay: 0.2s;
+}
+
+.animation-delay-400 {
+  animation-delay: 0.4s;
+}
+
+.animation-delay-600 {
+  animation-delay: 0.6s;
+}
+
+.animation-delay-800 {
+  animation-delay: 0.8s;
+}
+
+.animation-delay-1000 {
+  animation-delay: 1s;
+}
+
+.animation-delay-2000 {
+  animation-delay: 2s;
+}
+
+.animation-delay-4000 {
+  animation-delay: 4s;
+}
+
+/* Blob Animation */
+@keyframes blob {
+  0% {
+    transform: translate(0px, 0px) scale(1);
+  }
+  33% {
+    transform: translate(30px, -50px) scale(1.1);
+  }
+  66% {
+    transform: translate(-20px, 20px) scale(0.9);
+  }
+  100% {
+    transform: translate(0px, 0px) scale(1);
+  }
+}
+
+.animate-blob {
+  animation: blob 7s infinite;
+}
+
+/* Bar Growth Animation */
+@keyframes barGrow {
+  0% {
+    transform: scaleY(0);
+    opacity: 0;
+  }
+  50% {
+    transform: scaleY(0.8);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+}
+
+.animate-bar-grow {
+  animation: barGrow 0.8s ease-out forwards;
+  transform-origin: bottom;
+}
+
+/* Float Animation */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Professional Button Styles */
+.btn-primary {
+  background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+  border: none;
+  color: white;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, #16a34a 0%, #15803d 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 10px 25px -5px rgba(34, 197, 94, 0.4);
+}
+
+.btn-secondary {
+  background: white;
+  border: 2px solid #d1d5db;
+  color: #374151;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+  border-color: #22c55e;
+  color: #22c55e;
+  transform: translateY(-1px);
+}
+
+/* Compact CTA Buttons */
+.compact-primary-btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.compact-primary-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.3s;
+}
+
+.compact-primary-btn:hover::before {
+  left: 100%;
+}
+
+.compact-secondary-btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.compact-secondary-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(34, 197, 94, 0.1), transparent);
+  transition: left 0.3s;
+}
+
+.compact-secondary-btn:hover::before {
+  left: 100%;
+}
+
+/* Enhanced CTA Buttons */
+.enhanced-primary-btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.enhanced-primary-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.enhanced-primary-btn:hover::before {
+  left: 100%;
+}
+
+.enhanced-secondary-btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.enhanced-secondary-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(34, 197, 94, 0.1), transparent);
+  transition: left 0.5s;
+}
+
+.enhanced-secondary-btn:hover::before {
+  left: 100%;
+}
+
+/* Enhanced CTA Buttons */
+.cta-button-primary {
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-button-primary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.cta-button-primary:hover::before {
+  left: 100%;
+}
+
+.cta-button-secondary {
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-button-secondary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(34, 197, 94, 0.1), transparent);
+  transition: left 0.5s;
+}
+
+.cta-button-secondary:hover::before {
+  left: 100%;
+}
+
+/* Professional Card Styles */
+.professional-card {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  border: 1px solid #e5e7eb;
+  overflow: hidden;
+}
+
+/* Portfolio Card */
+.portfolio-card {
+  position: relative;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  border: 1px solid #e5e7eb;
+  overflow: hidden;
+}
+
+.portfolio-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #22c55e, #16a34a, #15803d);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.portfolio-card:hover::before {
+  opacity: 1;
+}
+
+/* Professional Typography */
+.text-heading {
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+}
+
+.text-subheading {
+  font-weight: 500;
+  line-height: 1.6;
+  color: #6b7280;
+}
+
+/* Professional Badge */
+.badge-professional {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  color: #15803d;
+  font-size: 0.875rem;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Professional Chart Elements */
+.chart-bar {
+  background: linear-gradient(180deg, #dcfce7 0%, #bbf7d0 100%);
+  border-radius: 4px 4px 0 0;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.chart-bar::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.3) 0%, transparent 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.chart-bar:hover {
+  background: linear-gradient(180deg, #bbf7d0 0%, #86efac 100%);
+  transform: scaleY(1.05);
+}
+
+.chart-bar:hover::before {
+  opacity: 1;
+}
+
+/* Professional Stats */
+.stats-card {
+  background: #f9fafb;
+  border-radius: 8px;
+  padding: 1rem;
+  text-align: center;
+  border: 1px solid #e5e7eb;
+}
+
+.stats-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #15803d;
+  line-height: 1;
+  transition: all 0.3s ease;
+}
+
+.stats-label {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin-top: 0.25rem;
+}
+
+/* Counting Animation Styles */
+.counting-number {
+  display: inline-block;
+  transition: all 0.3s ease;
+}
+
+.counting-number.updating {
+  transform: scale(1.1);
+  color: #16a34a;
+}
+
+/* Pulse effect for counting numbers */
+@keyframes countingPulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.counting-pulse {
+  animation: countingPulse 0.3s ease-in-out;
+}
+
+/* Professional Floating Elements */
+.floating-card {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e5e7eb;
+  padding: 1rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.floating-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(34, 197, 94, 0.05) 0%, transparent 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.floating-card:hover::after {
+  opacity: 1;
+}
+
+/* Professional Trust Indicators */
+.trust-indicator {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: #6b7280;
+  transition: all 0.3s ease;
+}
+
+.trust-indicator:hover {
+  transform: translateY(-2px);
+  color: #374151;
+}
+
+.trust-icon {
+  width: 2rem;
+  height: 2rem;
+  background: #dcfce7;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #16a34a;
+  font-size: 0.75rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.trust-icon:hover {
+  background: #bbf7d0;
+  transform: scale(1.1);
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .hero-professional {
+    padding: 2rem 1rem;
+  }
+  
+  .text-heading {
+    font-size: 2.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-professional {
+    padding: 1.5rem 1rem;
+  }
+  
+  .text-heading {
+    font-size: 2rem;
+  }
+  
+  .feature-card-professional {
+    padding: 0.75rem;
+  }
+  
+  .floating-card {
+    position: static !important;
+    margin-top: 1rem;
+  }
+}
+
+/* Professional Loading States */
+.skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Professional Focus States */
+.btn-primary:focus,
+.btn-secondary:focus {
+  outline: 2px solid #22c55e;
+  outline-offset: 2px;
+}
+
+/* Professional Hover Effects */
+.professional-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+/* Typewriter Effect */
+.typewriter-cursor {
+  color: #22c55e;
+  font-weight: bold;
+  animation: blink 1s infinite;
+  margin-left: 4px;
+  font-size: 1.1em;
+  vertical-align: middle;
+}
+
+@keyframes blink {
+  0%, 50% {
+    opacity: 1;
+  }
+  51%, 100% {
+    opacity: 0;
+  }
+}
+
+/* Typewriter Text Container */
+.typewriter-text {
+  display: inline-block;
+  min-height: 1.2em;
+  position: relative;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+/* Professional Color Palette */
+:root {
+  --primary-green: #22c55e;
+  --primary-green-dark: #16a34a;
+  --success-green: #10b981;
+  --warning-yellow: #f59e0b;
+  --error-red: #ef4444;
+  --gray-50: #f9fafb;
+  --gray-100: #f3f4f6;
+  --gray-200: #e5e7eb;
+  --gray-300: #d1d5db;
+  --gray-400: #9ca3af;
+  --gray-500: #6b7280;
+  --gray-600: #4b5563;
+  --gray-700: #374151;
+  --gray-800: #1f2937;
+  --gray-900: #111827;
+}
+
+/* Enhanced CTA Buttons - Matching Image Design */
+.cta-primary-btn {
+  position: relative;
+  overflow: hidden;
+  min-width: 180px;
+  height: 56px;
+  background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+  border: none;
+  box-shadow: 0 8px 25px -5px rgba(34, 197, 94, 0.3);
+}
+
+.cta-primary-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.6s ease;
+}
+
+.cta-primary-btn:hover::before {
+  left: 100%;
+}
+
+.cta-primary-btn:hover {
+  background: linear-gradient(135deg, #16a34a 0%, #15803d 100%);
+  box-shadow: 0 12px 35px -5px rgba(34, 197, 94, 0.4);
+  transform: translateY(-2px) scale(1.02);
+}
+
+.cta-secondary-btn {
+  position: relative;
+  overflow: hidden;
+  min-width: 180px;
+  height: 56px;
+  background: white;
+  border: 2px solid #22c55e;
+  box-shadow: 0 4px 15px -5px rgba(0, 0, 0, 0.1);
+}
+
+.cta-secondary-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(34, 197, 94, 0.05), transparent);
+  transition: left 0.6s ease;
+}
+
+.cta-secondary-btn:hover::before {
+  left: 100%;
+}
+
+.cta-secondary-btn:hover {
+  background: #f0fdf4;
+  border-color: #16a34a;
+  color: #15803d;
+  box-shadow: 0 8px 25px -5px rgba(34, 197, 94, 0.2);
+  transform: translateY(-2px) scale(1.02);
+}
+
+/* Button Focus States */
+.cta-primary-btn:focus,
+.cta-secondary-btn:focus {
+  outline: 2px solid #22c55e;
+  outline-offset: 2px;
+}
+
+/* Button Active States */
+.cta-primary-btn:active,
+.cta-secondary-btn:active {
+  transform: translateY(0) scale(0.98);
+}
+
+/* Modern Feature Cards - Matching Image Design */
+.feature-card-modern {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid #e5e7eb;
+  background: #ffffff;
+  position: relative;
+  overflow: hidden;
+}
+
+.feature-card-modern::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #22c55e, #16a34a);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.feature-card-modern:hover::before {
+  transform: scaleX(1);
+}
+
+.feature-card-modern:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 4px 10px -5px rgba(0, 0, 0, 0.04);
+  border-color: #22c55e;
+}
+
+/* Feature Card Icon Animations */
+.feature-card-modern .w-12 {
+  position: relative;
+  overflow: hidden;
+}
+
+.feature-card-modern .w-12::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, transparent 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.feature-card-modern:hover .w-12::after {
+  opacity: 1;
+}
+
+/* Enhanced Icon Gradients */
+.feature-card-modern .from-blue-500.to-cyan-500 {
+  background: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);
+}
+
+.feature-card-modern .from-teal-500.to-green-500 {
+  background: linear-gradient(135deg, #14b8a6 0%, #22c55e 100%);
+}
+
+.feature-card-modern .from-purple-500.to-pink-500 {
+  background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
+}
+
+.feature-card-modern .from-orange-500.to-red-500 {
+  background: linear-gradient(135deg, #f97316 0%, #ef4444 100%);
+}
