@@ -5,7 +5,8 @@ const path = require('path');
 const fs = require('fs');
 
 // Ensure uploads directory exists
-const uploadsDir = path.join(__dirname, 'uploads');
+// Use /tmp for Vercel serverless (only writable directory)
+const uploadsDir = '/tmp/uploads';
 if (!fs.existsSync(uploadsDir)) {
     fs.mkdirSync(uploadsDir, { recursive: true });
 }

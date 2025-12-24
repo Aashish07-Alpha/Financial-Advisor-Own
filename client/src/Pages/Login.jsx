@@ -83,7 +83,8 @@ const LoginPage = () => {
       // Set a flag to indicate we're in Google OAuth flow
       sessionStorage.setItem('fromGoogleOAuth', 'true');
       
-      const googleLoginUrl = `http://localhost:8080/api/auth/google`;
+      const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://localhost:8080';
+      const googleLoginUrl = `${backendUrl}/api/auth/google`;
       window.location.href = googleLoginUrl;
     } catch (error) {
       console.error('Error initiating Google login:', error);

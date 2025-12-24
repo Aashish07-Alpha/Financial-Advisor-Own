@@ -7,15 +7,10 @@ const { handleUpload, handleExtract } = require('../controllers/ocrController');
 
 // Ensure uploads directory exists
 // Use /tmp for serverless environments like Vercel (only writable directory)
-const uploadsDir = process.env.VERCEL ? '/tmp/uploads' : path.join(__dirname, '../uploads');
-try {
-  if (!fs.existsSync(uploadsDir)) {
-    fs.mkdirSync(uploadsDir, { recursive: true });
-    console.log('✅ Created uploads directory:', uploadsDir);
-  }
-} catch (error) {
-  console.error('⚠️ Could not create uploads directory:', error.message);
-  console.log('📁 Using default directory:', uploadsDir);
+const uploadsDir = '/tmp/uploads';
+if (!fs.existsSync(uploadsDir)) {
+  fs.mkdirSync(uploadsDir, { recursive: true });
+  console.log('✅ Created uploads directory:', uploadsDir);
 }
 
 // Configure multer with better error handling
