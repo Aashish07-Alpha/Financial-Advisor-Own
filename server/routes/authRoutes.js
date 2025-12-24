@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const passport = require('passport');
-const authController = require('../controllers/authController');
+const authController = require('../controllers/AuthController');
 
 // Google OAuth routes
 router.get('/google', 
