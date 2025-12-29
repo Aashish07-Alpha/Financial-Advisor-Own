@@ -64,34 +64,43 @@ const allowedOrigins = [
   "https://finadvisior.vercel.app",
   "https://finadvisorapp.vercel.app",
   "https://financial-advisor-own.vercel.app",
-  "https://financial-advisor-own-5x5f.vercel.app"
-];
+  "https://financial-advisor-own-5x5f.vercel.app",
+  process.env.FRONTEND_URL // Add from environment variable
+].filter(Boolean); // Remove undefined values
 
+// CORS configuration - Allow all origins in production due to Vercel deployment complexities
 app.use(cors({
   origin: function (origin, callback) {
-    console.log("Request Origin:", origin);
+    console.log("🌐 Request Origin:", origin);
 
-    // Allow requests with no origin (like mobile apps or curl requests)
+    // Always allow requests (more permissive for Vercel deployments)
+    // This is necessary because Vercel functions sometimes have undefined origins
+    return callback(null, true);
+    
+    // Alternative: Use this more restrictive version if needed
+    /*
     if (!origin) return callback(null, true);
-
-    // Allow all localhost requests for development
-    if (origin.includes('localhost') || origin.includes('127.0.0.1')) {
+    
+    if (origin.includes('localhost') || 
+        origin.includes('127.0.0.1') ||
+        origin.includes('vercel.app')) {
       return callback(null, true);
     }
-
-    if (
-      allowedOrigins.includes(origin) ||
-      /^https:\/\/.*\.finadvisior\.vercel\.app$/.test(origin) ||
-      /^https:\/\/.*\.finadvisorapp\.vercel\.app$/.test(origin) ||
-      /^https:\/\/.*financial-advisor-own.*\.vercel\.app$/.test(origin)
-    ) {
+    
+    if (allowedOrigins.includes(origin)) {
       return callback(null, true);
-    } else {
-      console.log("CORS blocked origin:", origin);
-      return callback(new Error("Not allowed by CORS"));
     }
+    
+    console.log("⚠️ CORS blocked origin:", origin);
+    return callback(new Error("Not allowed by CORS"));
+    */
   },
-  credentials: true
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+  exposedHeaders: ['Set-Cookie'],
+  preflightContinue: false,
+  optionsSuccessStatus: 204
 }));
 
 // Increase payload size limit for handling large images/files (e.g., success stories with images)
@@ -142,8 +151,9 @@ app.get("/ping", (req, res) => {
 // --- SOCKET.IO SETUP ---
 const io = new Server(http, {
   cors: {
-    origin: allowedOrigins,
-    methods: ["GET", "POST"]
+    origin: true, // Allow all origins for Socket.IO
+    methods: ["GET", "POST"],
+    credentials: true
   }
 });
 
