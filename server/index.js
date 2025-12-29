@@ -57,10 +57,15 @@ const PORT = process.env.PORT || 8080;
 
 // Allow both local and production frontend URLs
 const allowedOrigins = [
+  // Frontend URLs
   "https://financial-advisor-own-5x5f-c63mrslex.vercel.app",
   "https://financial-advisor-own-5x5f-ghqt9r9vk.vercel.app",
-  "https://financial-advisor-own-5x5f.vercel.app",
+  "https://financial-advisor-own-git-ea6ae2-aashish-suryawanshis-projects.vercel.app",
   "https://financial-advisor-own.vercel.app",
+  // Backend URLs (for API-to-API calls if needed)
+  "https://financial-advisor-own-5x5f.vercel.app",
+  "https://financial-advisor-own-git-fresh-main-aashish-suryawanshis-projects.vercel.app",
+  // Local development
   "http://localhost:3000",
   "http://localhost:8080",
   "http://127.0.0.1:3000",
@@ -68,20 +73,27 @@ const allowedOrigins = [
 ];
 
 app.use(cors({
-  origin: function(origin, callback) {
+  origin: (origin, callback) => {
     console.log("🌐 Request Origin:", origin);
     
+    // Allow requests with no origin (SSR, Postman, OAuth redirects, serverless)
     if (!origin) {
-      // Allow requests with no origin (like mobile apps, Postman, OAuth callbacks)
       return callback(null, true);
     }
     
+    // Check if origin is in allowed list
     if (allowedOrigins.includes(origin)) {
       return callback(null, true);
-    } else {
-      console.log("❌ CORS blocked origin:", origin);
-      return callback(new Error("Not allowed by CORS"), false);
     }
+    
+    // Also allow any vercel.app subdomain as fallback
+    if (origin.endsWith('.vercel.app')) {
+      console.log("✅ Allowing Vercel deployment:", origin);
+      return callback(null, true);
+    }
+    
+    console.log("❌ CORS blocked origin:", origin);
+    return callback(new Error("Not allowed by CORS"), false);
   },
   credentials: true
 }));
