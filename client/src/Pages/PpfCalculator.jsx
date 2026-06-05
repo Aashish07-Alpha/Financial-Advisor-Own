@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import {
   PieChart,
   Pie,
@@ -13,7 +13,28 @@ import {
   CartesianGrid
 } from "recharts";
 import NavBar from "../components/NavBar";
-import Footer from "../components/Footer";
+
+// Tax Slab Rates (Simplified for example)
+const taxSlabs = [
+  { range: [0, 250000], rate: 0 },
+  { range: [250001, 500000], rate: 5 },
+  { range: [500001, 1000000], rate: 20 },
+  { range: [1000001, Infinity], rate: 30 }
+];
+
+// Calculate Tax Savings helper
+const calculateTaxSavings = (investedAmount) => {
+  // Assume maximum deduction under Section 80C
+  const maxDeduction = 150000;
+  const deductionAmount = Math.min(investedAmount, maxDeduction);
+
+  // Find applicable tax slab
+  const applicableSlab = taxSlabs.find(
+    slab => deductionAmount >= slab.range[0] && deductionAmount <= slab.range[1]
+  );
+
+  return Math.round((deductionAmount * applicableSlab.rate) / 100);
+};
 
 const PPFCalculator = () => {
   const [yearlyInvestment, setYearlyInvestment] = useState(10000);
@@ -26,19 +47,11 @@ const PPFCalculator = () => {
     yearlyBreakdown: [],
     taxSavings: 0
   });
-  const [language, setLanguage] = useState("en");
+  const [language] = useState("en");
   const [comparisonScenarios, setComparisonScenarios] = useState([]);
 
-  // Tax Slab Rates (Simplified for example)
-  const taxSlabs = [
-    { range: [0, 250000], rate: 0 },
-    { range: [250001, 500000], rate: 5 },
-    { range: [500001, 1000000], rate: 20 },
-    { range: [1000001, Infinity], rate: 30 }
-  ];
-
   // Enhanced Calculation with Yearly Breakdown and Tax Savings
-  const calculatePPF = () => {
+  const calculatePPF = useCallback(() => {
     const P = yearlyInvestment;
     const r = rateOfInterest / 100;
     const n = timePeriod;
@@ -69,21 +82,7 @@ const PPFCalculator = () => {
       yearlyBreakdown: yearlyBreakdown,
       taxSavings: taxSavingsAmount
     });
-  };
-
-  // Calculate Tax Savings
-  const calculateTaxSavings = (investedAmount) => {
-    // Assume maximum deduction under Section 80C
-    const maxDeduction = 150000;
-    const deductionAmount = Math.min(investedAmount, maxDeduction);
-
-    // Find applicable tax slab
-    const applicableSlab = taxSlabs.find(
-      slab => deductionAmount >= slab.range[0] && deductionAmount <= slab.range[1]
-    );
-
-    return Math.round((deductionAmount * applicableSlab.rate) / 100);
-  };
+  }, [yearlyInvestment, rateOfInterest, timePeriod]);
 
   // Add Comparison Scenario
   const addComparisonScenario = () => {
@@ -106,10 +105,9 @@ const PPFCalculator = () => {
     );
   };
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     calculatePPF();
-  }, [yearlyInvestment, timePeriod, rateOfInterest]);
+  }, [calculatePPF]);
 
   const chartData = [
     { name: "Total Investment", value: results.investedAmount },

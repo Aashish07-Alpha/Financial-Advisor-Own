@@ -17,6 +17,8 @@ const TOPICS = [
   "Entrepreneurship advice",
 ];
 
+const YOUTUBE_API_KEY = process.env.REACT_APP_YOUTUBE_API_KEY;
+
 const YouTubeShorts = () => {
   const [shorts, setShorts] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -25,12 +27,11 @@ const YouTubeShorts = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
   const [isYouTubeAPIReady, setIsYouTubeAPIReady] = useState(false);
-  const [pageToken, setPageToken] = useState("");
 
   const playerRefs = useRef({});
   const loadingRef = useRef(false);
   const observerRef = useRef(null);
-  const YOUTUBE_API_KEY = process.env.REACT_APP_YOUTUBE_API_KEY;
+  const pageTokenRef = useRef("");
 
   const loadYouTubeIFrameAPI = () => {
     if (!window.YT) {
@@ -52,7 +53,7 @@ const YouTubeShorts = () => {
     return TOPICS[randomIndex];
   };
 
-  const fetchShorts = async () => {
+  const fetchShorts = useCallback(async () => {
     if (loadingRef.current) return;
     loadingRef.current = true;
     setLoading(true);
@@ -69,14 +70,14 @@ const YouTubeShorts = () => {
           `videoDuration=short&` +
           `order=date&` +
           `videoDefinition=high&` +
-          `pageToken=${pageToken}&` +
+          `pageToken=${pageTokenRef.current}&` +
           `key=${YOUTUBE_API_KEY}`
       );
 
       if (!response.ok) throw new Error("Failed to fetch shorts");
 
       const data = await response.json();
-      setPageToken(data.nextPageToken || "");
+      pageTokenRef.current = data.nextPageToken || "";
 
       const videoIds = data.items.map((item) => item.id.videoId);
       const detailsResponse = await fetch(
@@ -114,7 +115,7 @@ const YouTubeShorts = () => {
       setLoading(false);
       loadingRef.current = false;
     }
-  };
+  }, []);
 
   const initializePlayer = (videoId, index) => {
     if (!window.YT || !window.YT.Player) return;
@@ -166,12 +167,12 @@ const YouTubeShorts = () => {
   const handleIntersection = useCallback(
     (entries) => {
       entries.forEach((entry) => {
-        if (entry.isIntersecting && !loading && pageToken) {
+        if (entry.isIntersecting && !loading && pageTokenRef.current) {
           fetchShorts();
         }
       });
     },
-    [loading, pageToken]
+    [loading, fetchShorts]
   );
 
   useEffect(() => {
@@ -182,7 +183,7 @@ const YouTubeShorts = () => {
     if (isYouTubeAPIReady) {
       fetchShorts();
     }
-  }, [isYouTubeAPIReady]);
+  }, [isYouTubeAPIReady, fetchShorts]);
 
   useEffect(() => {
     const currentVideoId = shorts[activeShortIndex]?.id;

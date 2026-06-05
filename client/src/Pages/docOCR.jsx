@@ -1,11 +1,10 @@
-import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import FileUpload from '../components/FileUpload';
 import DocPreview from '../components/DocPreview';
 import ExtractedFields from '../components/ExtractedFields';
 
 // Constants for production
 const POPUP_DURATION = 3000;
-const ANIMATION_FPS = 60;
 
 // Error boundary component for production
 class OCRErrorBoundary extends React.Component {
@@ -267,18 +266,6 @@ const DocOCR = () => {
             </svg>
           </div>
         );
-    }
-  };
-
-  const getPopupColor = (type) => {
-    switch (type) {
-      case 'success':
-        return 'text-green-600';
-      case 'error':
-        return 'text-red-600';
-      case 'info':
-      default:
-        return 'text-blue-600';
     }
   };
 

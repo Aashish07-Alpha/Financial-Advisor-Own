@@ -4,12 +4,10 @@ import { toast } from 'react-toastify';
 import axios from 'axios';
 import AuthContext from '../Authorisation/AuthProvider';
 import { clearAuthData, getAuthData } from '../utils/authUtils';
-import { useAuthState } from '../hooks/useAuthState';
 
 const LoginPage = () => {
   const navigate = useNavigate();
   const { login } = useContext(AuthContext);
-  const { } = useAuthState();
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
     email: '',
@@ -18,6 +16,21 @@ const LoginPage = () => {
 
   // Check if user is already authenticated and redirect to dashboard
   useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const oauthError = params.get('error');
+
+    if (oauthError === 'google_auth_failed') {
+      toast.error('Google sign-in failed. Please try again.', {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
+      window.history.replaceState({}, '', '/login');
+    }
+
     // Check if we're coming from Google OAuth (URL contains access_token)
     const urlParams = new URLSearchParams(window.location.search);
     const hasAccessToken = urlParams.get('access_token');

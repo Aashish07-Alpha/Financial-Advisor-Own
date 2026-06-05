@@ -183,7 +183,12 @@ exports.logout = (req, res) => {
 // Verify token
 exports.verifyToken = async (req, res) => {
   try {
-    const token = req.cookies?.token;
+    let token = req.cookies?.token;
+
+    // Fallback to Authorization header for clients that persist JWT in localStorage.
+    if (!token && req.headers.authorization?.startsWith('Bearer ')) {
+      token = req.headers.authorization.substring(7);
+    }
     
     if (!token) {
       return res.status(401).json({ message: 'No token provided' });

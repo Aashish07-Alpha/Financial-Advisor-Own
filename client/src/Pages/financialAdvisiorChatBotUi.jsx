@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 import { useAuthState } from "../hooks/useAuthState";
 import "../LandingPage/Hero/Hero.css";
 
+const backend_url = process.env.REACT_APP_BACKEND_URL || "http://localhost:8080";
+
 export default function FinancialAdvisorChatbotUi() {
   const { user, isAuthenticated } = useAuthState();
   
@@ -22,7 +24,6 @@ export default function FinancialAdvisorChatbotUi() {
   const [advice, setAdvice] = useState(null);
   const [formValid, setFormValid] = useState(false);
   const [progress, setProgress] = useState(0);
-  const backend_url = process.env.REACT_APP_BACKEND_URL || "http://localhost:8080";
 
   useEffect(() => {
     fetch(`${backend_url}/api/business-types`)
@@ -242,7 +243,7 @@ export default function FinancialAdvisorChatbotUi() {
               // Remove all bullet-like symbols and clean the text
               const text = line
                 .replace(/^[•\-*]\s*/, '')
-                .replace(/[\[\]]/g, '')
+                .replace(/\[|\]/g, '')
                 .trim();
               if (!text) return null;
               return (
@@ -257,20 +258,9 @@ export default function FinancialAdvisorChatbotUi() {
       }
       
       // Clean paragraph text
-      const cleanPart = part.replace(/[\[\]]/g, '');
+      const cleanPart = part.replace(/\[|\]/g, '');
       return <p key={idx} className="text-gray-700 leading-relaxed mb-3">{cleanPart}</p>;
     });
-  };
-
-  const stripMarkdown = (text) => {
-    if (!text) return "";
-    return text
-      .replace(/\*{2}(.*?)\*{2}/g, "$1")
-      .replace(/_(.*?)_/g, "$1")
-      .replace(/`(.*?)`/g, "$1")
-      .replace(/#+\s/g, "")
-      .replace(/\*/g, "")
-      .replace(/\s+/g, " ");
   };
 
   // Show login message if user is not authenticated

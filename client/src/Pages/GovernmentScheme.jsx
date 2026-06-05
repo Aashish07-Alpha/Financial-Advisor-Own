@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef, useCallback } from "react";
 import axios from "axios";
 import NavBar from "../components/NavBar";
 import {
-  Card,
   CardContent,
   CardDescription,
   CardHeader,
@@ -25,15 +24,17 @@ const GovernmentSchemes = () => {
     occupation: "All",
   });
 
+  const filtersRef = useRef(filters);
   const [activeCard, setActiveCard] = useState(null);
 
-  const fetchSchemes = async () => {
+  const fetchSchemes = useCallback(async (customFilters) => {
     setLoading(true);
     setError("");
 
     try {
       const backend_url = process.env.REACT_APP_BACKEND_URL || "http://localhost:8080";
-      const response = await axios.post(`${backend_url}/api/schemes`, filters);
+      const targetFilters = customFilters || filtersRef.current;
+      const response = await axios.post(`${backend_url}/api/schemes`, targetFilters);
 
       if (Array.isArray(response.data)) {
         setSchemes(response.data);
@@ -49,7 +50,7 @@ const GovernmentSchemes = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
   const handleSubmit = () => {
     setHasSearched(true);
@@ -57,19 +58,25 @@ const GovernmentSchemes = () => {
   };
 
   const handleClearFilters = () => {
-    setFilters({
+    const cleared = {
       category: "All",
       state: "All",
       income: "All",
       age: "All",
       occupation: "All",
-    });
+    };
+    setFilters(cleared);
+    filtersRef.current = cleared;
     setHasSearched(false);
-    fetchSchemes(); // Fetch all schemes again
+    fetchSchemes(cleared); // Fetch all schemes again
   };
 
   const handleFilterChange = (key, value) => {
-    setFilters(prev => ({ ...prev, [key]: value }));
+    setFilters(prev => {
+      const updated = { ...prev, [key]: value };
+      filtersRef.current = updated;
+      return updated;
+    });
     // Reset search state when filters change
     setHasSearched(false);
   };
@@ -77,7 +84,7 @@ const GovernmentSchemes = () => {
   // Fetch all schemes when component mounts
   useEffect(() => {
     fetchSchemes();
-  }, []);
+  }, [fetchSchemes]);
 
   const filteredSchemes = schemes.filter((scheme) => {
     const matchesSearch =

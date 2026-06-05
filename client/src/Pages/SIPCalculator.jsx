@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import {
   PieChart,
   Pie,
@@ -24,11 +24,11 @@ const SIPCalculator = () => {
     maturityValue: 0,
     yearlyBreakdown: [],
   });
-  const [language, setLanguage] = useState("en");
+  const [language] = useState("en");
   const [comparisonScenarios, setComparisonScenarios] = useState([]);
 
   // Enhanced SIP Calculation with Yearly Breakdown
-  const calculateSIP = () => {
+  const calculateSIP = useCallback(() => {
     const P = monthlyInvestment;
     const r = expectedReturn / 100 / 12;  // Monthly interest rate
     const n = timePeriod * 12;  // Total number of months
@@ -58,7 +58,11 @@ const SIPCalculator = () => {
       maturityValue: Math.round(maturityValue),
       yearlyBreakdown: yearlyBreakdown
     });
-  };
+  }, [monthlyInvestment, expectedReturn, timePeriod]);
+
+  useEffect(() => {
+    calculateSIP();
+  }, [calculateSIP]);
 
   // Add Comparison Scenario
   const addComparisonScenario = () => {
@@ -80,11 +84,6 @@ const SIPCalculator = () => {
       comparisonScenarios.filter(scenario => scenario.id !== id)
     );
   };
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => {
-    calculateSIP();
-  }, [monthlyInvestment, timePeriod, expectedReturn]);
 
   const chartData = [
     { name: "Total Investment", value: results.totalInvested },
