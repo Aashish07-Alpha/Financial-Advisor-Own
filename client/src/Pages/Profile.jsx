@@ -62,6 +62,7 @@ const Profile = () => {
   const { user } = useAuthState();
   const [isEditing, setIsEditing] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://localhost:8080';
   const [editedUser, setEditedUser] = useState({
     name: '',
     email: '',
@@ -157,7 +158,7 @@ const Profile = () => {
       }
 
       const response = await axios.put(
-        'http://localhost:8080/api/auth/profile',
+        `${backendUrl}/api/auth/profile`,
         updateData,
         { withCredentials: true }
       );

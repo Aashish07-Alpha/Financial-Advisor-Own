@@ -9,6 +9,7 @@ const LoginPage = () => {
   const navigate = useNavigate();
   const { login } = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(false);
+  const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://localhost:8080';
   const [formData, setFormData] = useState({
     email: '',
     password: ''
@@ -96,7 +97,6 @@ const LoginPage = () => {
       // Set a flag to indicate we're in Google OAuth flow
       sessionStorage.setItem('fromGoogleOAuth', 'true');
       
-      const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://localhost:8080';
       const googleLoginUrl = `${backendUrl}/api/auth/google`;
       window.location.href = googleLoginUrl;
     } catch (error) {
@@ -161,7 +161,7 @@ const LoginPage = () => {
       setIsLoading(true);
 
       const response = await axios.post(
-        `http://localhost:8080/api/auth/login`,
+        `${backendUrl}/api/auth/login`,
         formData,
         { withCredentials: true }
       );

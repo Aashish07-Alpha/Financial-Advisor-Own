@@ -20,7 +20,10 @@ const SuccessLogin = () => {
       try {
         const response = await axios.get(
           `${backendUrl}/api/auth/user`,
-          { withCredentials: true }
+          {
+            withCredentials: true,
+            headers: { Authorization: `Bearer ${token}` }
+          }
         );
         
         if (response.data.success) {

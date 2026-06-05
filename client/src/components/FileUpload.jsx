@@ -29,9 +29,7 @@ const FileUpload = ({ onOcrText, onFileChange, onError }) => {
     const formData = new FormData();
     formData.append('file', file);
 
-    const API_BASE = process.env.NODE_ENV === 'production'
-      ? "https://financial-advisior.onrender.com"
-      : 'http://localhost:3000';  
+    const API_BASE = process.env.REACT_APP_BACKEND_URL || 'http://localhost:8080';
 
     try {
       console.log('Uploading file:', file.name, 'Size:', file.size, 'Type:', file.type);

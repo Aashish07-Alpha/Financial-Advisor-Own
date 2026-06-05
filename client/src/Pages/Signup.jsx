@@ -9,6 +9,7 @@ const Signup = () => {
   const navigate = useNavigate();
   const { login } = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(false);
+  const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://localhost:8080';
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -112,7 +113,7 @@ const Signup = () => {
       setIsLoading(true);
 
       const response = await axios.post(
-        `http://localhost:8080/api/auth/register`,
+        `${backendUrl}/api/auth/register`,
         {
           name: formData.name,
           email: formData.email,
