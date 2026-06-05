@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback, useMemo } from 'react';
 import SimpleIcons from './SimpleIcons';
 import { useNavigate } from 'react-router-dom';
 
@@ -31,8 +31,20 @@ const UnifiedAssistant = () => {
   const synthesisRef = useRef(null);
   const backend_url = process.env.REACT_APP_BACKEND_URL || "http://localhost:8080";
 
+  // Voice state references and stables
+  const isMutedRef = useRef(isMuted);
+  useEffect(() => {
+    isMutedRef.current = isMuted;
+  }, [isMuted]);
+
+  const speakResponse = useCallback((text) => {
+    if (isMutedRef.current || !synthesisRef.current) return;
+    const utterance = new SpeechSynthesisUtterance(text);
+    synthesisRef.current.speak(utterance);
+  }, []);
+
   // Voice commands
-  const voiceCommands = {
+  const voiceCommands = useMemo(() => ({
     "go home": () => navigate("/"),
     "go to news": () => navigate("/news"),
     "go to learn": () => navigate("/learn"),
@@ -42,7 +54,20 @@ const UnifiedAssistant = () => {
     "go to expenses": () => navigate("/expenses"),
     "go to scams": () => navigate("/scams"),
     "help": () => speakResponse("Say 'go to' followed by: home, news, learn, calculator, community, chatbot, expenses, scams."),
-  };
+  }), [navigate, speakResponse]);
+
+  const processVoiceCommand = useCallback((command) => {
+    const matchedCommand = Object.keys(voiceCommands).find(cmd => 
+      command.includes(cmd) || cmd.includes(command)
+    );
+    
+    if (matchedCommand) {
+      voiceCommands[matchedCommand]();
+      speakResponse("Done.");
+    } else {
+      speakResponse("Not recognized. Say 'help' for commands.");
+    }
+  }, [voiceCommands, speakResponse]);
 
   // Chat functions
   const sendMessage = async (messageText) => {
@@ -91,26 +116,6 @@ const UnifiedAssistant = () => {
     sendMessage(inputMessage);
   };
 
-  // Voice functions
-  const speakResponse = (text) => {
-    if (isMuted || !synthesisRef.current) return;
-    const utterance = new SpeechSynthesisUtterance(text);
-    synthesisRef.current.speak(utterance);
-  };
-
-  const processVoiceCommand = (command) => {
-    const matchedCommand = Object.keys(voiceCommands).find(cmd => 
-      command.includes(cmd) || cmd.includes(command)
-    );
-    
-    if (matchedCommand) {
-      voiceCommands[matchedCommand]();
-      speakResponse("Done.");
-      } else {
-        speakResponse("Not recognized. Say 'help' for commands.");
-    }
-  };
-
   const toggleListening = () => {
     if (isListening) {
       recognitionRef.current?.stop();
@@ -149,7 +154,7 @@ const UnifiedAssistant = () => {
     if ('speechSynthesis' in window) {
       synthesisRef.current = window.speechSynthesis;
     }
-  }, []);
+  }, [processVoiceCommand]);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -170,6 +175,8 @@ const UnifiedAssistant = () => {
         break;
       case 'youtube':
         window.open('https://www.youtube.com', '_blank');
+        break;
+      default:
         break;
     }
   };
