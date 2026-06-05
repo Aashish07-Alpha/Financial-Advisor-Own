@@ -11,6 +11,7 @@ const SuccessLogin = () => {
     const fetchUser = async () => {
       const params = new URLSearchParams(window.location.search);
       const token = params.get('access_token');
+      const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://localhost:8080';
 
       if (!token) {
         return navigate('/login');
@@ -18,7 +19,7 @@ const SuccessLogin = () => {
 
       try {
         const response = await axios.get(
-          `${process.env.REACT_APP_BACKEND_URL}/api/auth/user`,
+          `${backendUrl}/api/auth/user`,
           { withCredentials: true }
         );
         

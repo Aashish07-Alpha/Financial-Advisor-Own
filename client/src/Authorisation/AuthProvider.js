@@ -7,6 +7,8 @@ import { useAuthState, setAuthState, clearAuthState } from "../hooks/useAuthStat
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
+  const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://localhost:8080';
+
   // Use the global auth state
   const globalState = useAuthState();
   const [isAuthenticated, setIsAuthenticated] = useState(globalState.isAuthenticated);
@@ -81,8 +83,11 @@ export const AuthProvider = ({ children }) => {
         draggable: false,
       });
 
-      await axios.post(`http://localhost:8080/api/auth/logout`, {}, {
-        withCredentials: true
+      const token = localStorage.getItem('token');
+
+      await axios.post(`${backendUrl}/api/auth/logout`, {}, {
+        withCredentials: true,
+        headers: token ? { Authorization: `Bearer ${token}` } : {}
       });
 
       // Dismiss loading toast
@@ -133,8 +138,10 @@ export const AuthProvider = ({ children }) => {
   const verifyAuth = useCallback(async () => {
     try {
       console.log('🔍 Verifying authentication with server...');
-      const response = await axios.get(`http://localhost:8080/api/auth/verify`, {
-        withCredentials: true
+      const token = localStorage.getItem('token');
+      const response = await axios.get(`${backendUrl}/api/auth/verify`, {
+        withCredentials: true,
+        headers: token ? { Authorization: `Bearer ${token}` } : {}
       });
       
       if (response.data.success) {
@@ -161,7 +168,7 @@ export const AuthProvider = ({ children }) => {
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [backendUrl]);
 
   useEffect(() => {
     // Always verify with server first, regardless of localStorage
