@@ -16,7 +16,6 @@ import {
 
 import Features from "../components/Features";
 import NavBar from "../components/NavBar"; // Import NavBar
-import Footer from "../components/Footer";
 import "../LandingPage/Hero/Hero.css";
 
 
@@ -343,68 +342,7 @@ const translations = {
   },
 };
 
-const SuccessStoryTimeline = ({ steps }) => {
-  return (
-    <div className="max-w-6xl mx-auto px-4 py-12">
-      {steps.map((step, index) => (
-        <div
-          key={index}
-          className={`flex flex-col ${
-            index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
-          } items-center gap-8 mb-16 relative`}
-        >
-          {/* Timeline connector */}
-          <div className="hidden md:block absolute h-full w-0.5 bg-green-200 left-1/2 transform -translate-x-1/2 -z-10">
-            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 h-4 w-4 bg-green-400 rounded-full border-4 border-white shadow" />
-          </div>
-
-          {/* YouTube Video Container */}
-          <div className="w-full md:w-1/2 relative">
-            <div
-              className="relative rounded-xl overflow-hidden shadow-lg"
-              style={{ height: "315px" }}
-            >
-              <iframe
-                width="100%"
-                height="100%"
-                src={`https://www.youtube.com/embed/${step.youtubeId}?start=1&autoplay=0`}
-                title="YouTube video player"
-                frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              />
-            </div>
-          </div>
-
-          {/* Content */}
-          <div className="w-full md:w-1/2 space-y-4">
-            <div className="backdrop-blur-sm bg-white/50 rounded-xl p-6">
-              {/* Step Number */}
-              <div className="inline-block px-3 py-1 rounded-full bg-green-50 text-green-700 text-sm font-medium mb-4">
-                Step {index + 1}
-              </div>
-
-              <h3 className="text-2xl font-bold text-gray-800 mb-4">
-                {step.title}
-              </h3>
-
-              <p className="text-gray-600 mb-4 leading-relaxed">
-                {step.description}
-              </p>
-
-              <div className="pt-4 border-t border-gray-100/20">
-                <p className="text-gray-500 text-sm">{step.extraDescription}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      ))}
-    </div>
-  );
-};
-
 const LandingPage = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [language, setLanguage] = useState("en");
   const t = translations[language];
 

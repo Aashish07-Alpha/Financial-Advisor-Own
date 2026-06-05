@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import {
   LineChart,
   Line,
@@ -16,7 +16,7 @@ const CompoundInterestCalculator = () => {
   const [interestRate, setInterestRate] = useState(8);
   const [compoundFrequency, setCompoundFrequency] = useState(12);
   const [investmentDuration, setInvestmentDuration] = useState(5);
-  const [language, setLanguage] = useState("en");
+  const [language] = useState("en");
 
   const [results, setResults] = useState({
     totalAmount: 0,
@@ -24,7 +24,7 @@ const CompoundInterestCalculator = () => {
     yearlyBreakdown: []
   });
 
-  const calculateCompoundInterest = () => {
+  const calculateCompoundInterest = useCallback(() => {
     // Formula: A = P * (1 + r/n)^(n*t)
     const P = principal;
     const r = interestRate / 100;
@@ -49,12 +49,11 @@ const CompoundInterestCalculator = () => {
       totalInterest: Math.round(totalInterest),
       yearlyBreakdown: yearlyBreakdown
     });
-  };
+  }, [principal, interestRate, compoundFrequency, investmentDuration]);
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     calculateCompoundInterest();
-  }, [principal, interestRate, compoundFrequency, investmentDuration]);
+  }, [calculateCompoundInterest]);
 
   return (
     <>

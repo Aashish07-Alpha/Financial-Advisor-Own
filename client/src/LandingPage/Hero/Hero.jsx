@@ -58,7 +58,6 @@ const Hero = () => {
   // Function to split text into black and green parts
   const renderTypewriterText = () => {
     const firstPart = "Strategic Financial";
-    const secondPart = "Planning Solutions";
     
     if (typewriterText.length <= firstPart.length) {
       // Still typing first part (black)
@@ -132,11 +131,6 @@ const Hero = () => {
     };
   }, []);
   
-  // Function to format numbers with commas
-  const formatNumber = (num) => {
-    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-  };
-
   return (
     <section className="hero-professional w-full min-h-screen flex flex-col lg:flex-row items-center justify-between px-6 lg:px-16 xl:px-24 py-16 bg-gradient-to-br from-green-50 via-white to-emerald-50 relative overflow-hidden">
       {/* Professional Background Elements */}

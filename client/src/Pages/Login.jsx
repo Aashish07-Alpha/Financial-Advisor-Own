@@ -4,12 +4,10 @@ import { toast } from 'react-toastify';
 import axios from 'axios';
 import AuthContext from '../Authorisation/AuthProvider';
 import { clearAuthData, getAuthData } from '../utils/authUtils';
-import { useAuthState } from '../hooks/useAuthState';
 
 const LoginPage = () => {
   const navigate = useNavigate();
   const { login } = useContext(AuthContext);
-  const { } = useAuthState();
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
     email: '',

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import {
   PieChart,
   Pie,
@@ -21,7 +21,7 @@ const RetirementCalculator = () => {
   const [currentSavings, setCurrentSavings] = useState(200000);
   const [expectedInflation, setExpectedInflation] = useState(6);
   const [expectedReturnRate, setExpectedReturnRate] = useState(12);
-  const [monthlyExpensesPostRetirement, setMonthlyExpensesPostRetirement] = useState(30000);
+  const [monthlyExpensesPostRetirement] = useState(30000);
 
   const [results, setResults] = useState({
     yearsToRetirement: 0,
@@ -32,11 +32,11 @@ const RetirementCalculator = () => {
     yearlyBreakdown: [],
   });
 
-  const [language, setLanguage] = useState("en");
+  const [language] = useState("en");
   const [comparisonScenarios, setComparisonScenarios] = useState([]);
 
   // Detailed Retirement Calculation
-  const calculateRetirement = () => {
+  const calculateRetirement = useCallback(() => {
     const yearsToRetirement = retirementAge - currentAge;
     const monthlyExpensesAdjustedForInflation = monthlyExpensesPostRetirement * Math.pow((1 + expectedInflation / 100), yearsToRetirement);
     const annualIncomeNeeded = monthlyExpensesAdjustedForInflation * 12;
@@ -46,9 +46,6 @@ const RetirementCalculator = () => {
     
     // Calculate total retirement fund required (considering inflation)
     const totalRetirementFundRequired = annualIncomeNeeded * retirementYears;
-    
-    // Calculate future value of current savings
-    const futureValueOfCurrentSavings = currentSavings * Math.pow((1 + expectedReturnRate / 100), yearsToRetirement);
     
     // Calculate required retirement corpus
     const requiredRetirementCorpus = totalRetirementFundRequired / Math.pow((1 + expectedReturnRate / 100), retirementYears);
@@ -75,7 +72,7 @@ const RetirementCalculator = () => {
       totalRetirementFundRequired: Math.round(totalRetirementFundRequired),
       yearlyBreakdown: yearlyBreakdown
     });
-  };
+  }, [currentAge, retirementAge, monthlyExpensesPostRetirement, expectedInflation, expectedReturnRate, currentAnnualIncome, currentSavings]);
 
   // Add Comparison Scenario
   const addComparisonScenario = () => {
@@ -98,18 +95,9 @@ const RetirementCalculator = () => {
     );
   };
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     calculateRetirement();
-  }, [
-    currentAge, 
-    retirementAge, 
-    currentAnnualIncome, 
-    currentSavings,
-    expectedInflation,
-    expectedReturnRate,
-    monthlyExpensesPostRetirement
-  ]);
+  }, [calculateRetirement]);
 
   const chartData = [
     { name: "Current Savings", value: currentSavings },

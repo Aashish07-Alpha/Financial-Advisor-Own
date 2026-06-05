@@ -3,11 +3,9 @@ import { scamsData } from './scamsdata.js';
 import './ScamsPage.css';
 
 const ScamsPage = () => {
-  const [activeSection, setActiveSection] = useState(0);
   const [expandedSections, setExpandedSections] = useState(new Set());
   const [isLoading, setIsLoading] = useState(true);
   const [animateHeader, setAnimateHeader] = useState(false);
-  const [currentStep, setCurrentStep] = useState(0);
   const [hoveredCard, setHoveredCard] = useState(null);
   const [showParticles, setShowParticles] = useState(false);
   const [summaryExpanded, setSummaryExpanded] = useState(false);
@@ -22,15 +20,6 @@ const ScamsPage = () => {
     }, 800);
 
     return () => clearTimeout(timer);
-  }, []);
-
-  useEffect(() => {
-    // Animate through learning steps
-    const stepInterval = setInterval(() => {
-      setCurrentStep((prev) => (prev + 1) % 4);
-    }, 3000);
-
-    return () => clearInterval(stepInterval);
   }, []);
 
   const toggleSection = (sectionIndex) => {
@@ -50,33 +39,6 @@ const ScamsPage = () => {
   const toggleComprehensive = () => {
     setComprehensiveExpanded(!comprehensiveExpanded);
   };
-
-  const learningSteps = [
-    {
-      icon: "📚",
-      title: "Learn",
-      description: "Understand different types of financial scams",
-      color: "#22c55e"
-    },
-    {
-      icon: "🔍",
-      title: "Identify",
-      description: "Recognize red flags and suspicious activities",
-      color: "#16a34a"
-    },
-    {
-      icon: "🛡️",
-      title: "Protect",
-      description: "Implement security measures and best practices",
-      color: "#15803d"
-    },
-    {
-      icon: "🚨",
-      title: "Report",
-      description: "Report scams to authorities and help others",
-      color: "#166534"
-    }
-  ];
 
   const renderTable = (table) => {
     if (!table || !table.headers || !table.rows) return null;

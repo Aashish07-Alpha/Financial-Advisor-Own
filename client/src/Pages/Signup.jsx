@@ -31,7 +31,7 @@ const Signup = () => {
       });
       navigate('/financialAdvisior');
     }
-  }, []); // Removed navigate from dependencies to prevent multiple executions
+  }, [navigate]);
 
   const handleInputChange = (e) => {
     setFormData({

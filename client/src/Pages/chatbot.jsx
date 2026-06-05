@@ -14,7 +14,6 @@ const Chatbot = () => {
   const [inputMessage, setInputMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isRecording, setIsRecording] = useState(false);
-  const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef(null);
   const backend_url = process.env.REACT_APP_BACKEND_URL || "http://localhost:8080";
 
@@ -39,7 +38,6 @@ const Chatbot = () => {
     setMessages(prev => [...prev, userMessage]);
     setInputMessage('');
     setIsLoading(true);
-    setIsTyping(true);
 
     try {
       // Prepare conversation history for context
@@ -86,7 +84,6 @@ const Chatbot = () => {
       setMessages(prev => [...prev, errorMessage]);
     } finally {
       setIsLoading(false);
-      setIsTyping(false);
     }
   };
 

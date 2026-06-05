@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import {
   PieChart,
   Pie,
@@ -9,11 +9,27 @@ import {
 } from "recharts";
 import NavBar from "../components/NavBar";
 
+const calculateTaxUsingSlabs = (income, slabs) => {
+  let tax = 0;
+  for (let slab of slabs) {
+    if (income > slab.min) {
+      const taxableAmount = Math.min(income - slab.min, slab.max - slab.min);
+      tax += taxableAmount * slab.rate;
+    }
+  }
+  return tax;
+};
+
+const calculatePotentialSavings = (currentTax) => {
+  // Simplified potential savings calculation
+  return Math.round(currentTax * 0.2);
+};
+
 const TaxCalculator = () => {
   const [annualIncome, setAnnualIncome] = useState(1000000);
   const [otherIncome, setOtherIncome] = useState(0);
   const [taxRegime, setTaxRegime] = useState("new");
-  const [language, setLanguage] = useState("en");
+  const [language] = useState("en");
 
   const [taxCalculation, setTaxCalculation] = useState({
     totalIncome: 0,
@@ -24,7 +40,7 @@ const TaxCalculator = () => {
     taxSavings: []
   });
 
-  const calculateTax = () => {
+  const calculateTax = useCallback(() => {
     const totalIncome = annualIncome + otherIncome;
     const standardDeduction = 50000;
     let taxableIncome = totalIncome - standardDeduction;
@@ -71,28 +87,11 @@ const TaxCalculator = () => {
       netTaxPayable: Math.round(netTaxPayable),
       taxSavings
     });
-  };
+  }, [annualIncome, otherIncome, taxRegime]);
 
-  const calculateTaxUsingSlabs = (income, slabs) => {
-    let tax = 0;
-    for (let slab of slabs) {
-      if (income > slab.min) {
-        const taxableAmount = Math.min(income - slab.min, slab.max - slab.min);
-        tax += taxableAmount * slab.rate;
-      }
-    }
-    return tax;
-  };
-
-  const calculatePotentialSavings = (currentTax) => {
-    // Simplified potential savings calculation
-    return Math.round(currentTax * 0.2);
-  };
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     calculateTax();
-  }, [annualIncome, otherIncome, taxRegime]);
+  }, [calculateTax]);
 
   const COLORS = ['#2563EB', '#10B981'];
 

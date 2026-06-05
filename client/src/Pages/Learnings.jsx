@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { Search, IndianRupee, Users, Home, Star } from "lucide-react";
 import NavBar from "../components/NavBar";
 
@@ -12,6 +12,9 @@ const fadeInUpStyle = `
   animation: fadeInUp 0.5s cubic-bezier(.4,0,.2,1);
 }
 `;
+
+const YOUTUBE_API_KEY = process.env.REACT_APP_YOUTUBE_API_KEY;
+const RESULTS_PER_PAGE = 9;
 
 const Card = ({ children, className = "", style = {} }) => (
   <div
@@ -35,18 +38,13 @@ const CardDescription = ({ children, className = "" }) => (
 );
 
 const LearningCenter = () => {
-  const [selectedCategory, setSelectedCategory] = useState("all");
   const [videos, setVideos] = useState([]);
   const [searchQuery, setSearchQuery] = useState(
     "financial literacy for low income families"
   );
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [nextPageToken, setNextPageToken] = useState(null);
   const [activeTag, setActiveTag] = useState(1);
-
-  const YOUTUBE_API_KEY = process.env.REACT_APP_YOUTUBE_API_KEY;
-  const RESULTS_PER_PAGE = 9;
 
   // Quick search categories with icons and search terms
   const quickSearchTags = [
@@ -83,7 +81,7 @@ const LearningCenter = () => {
   ];
 
   // Helper: Fetch videos from YouTube API
-  const fetchVideos = async (searchTerm = "", pageToken = "") => {
+  const fetchVideos = useCallback(async (searchTerm = "", pageToken = "") => {
     if (!YOUTUBE_API_KEY) {
       setError("YouTube API key is missing");
       return;
@@ -141,20 +139,20 @@ const LearningCenter = () => {
         };
       });
 
-      setVideos(pageToken ? [...videos, ...enhancedVideos] : enhancedVideos);
-      setNextPageToken(searchData.nextPageToken || null);
+      setVideos(enhancedVideos);
     } catch (error) {
       setError(error.message || "Error fetching videos");
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
+
+  const initialSearchQueryRef = useRef("financial literacy for low income families");
 
   // Effect: Initial fetch
   useEffect(() => {
-    fetchVideos(searchQuery);
-    // eslint-disable-next-line
-  }, []);
+    fetchVideos(initialSearchQueryRef.current);
+  }, [fetchVideos]);
 
   const handleQuickSearch = (tag) => {
     setActiveTag(tag.id === activeTag ? null : tag.id);

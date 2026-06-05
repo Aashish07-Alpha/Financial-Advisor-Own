@@ -1,8 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
 import women1 from "./women1.webp";
-import women2 from "./women2.jpg";
-import man1 from "./man1.jpg";
-import man2 from "./man2.jpg";
 import defaultStories from "./defaultStories";
 import toast, { Toaster } from "react-hot-toast";
 import AuthContext from '../Authorisation/AuthProvider';
@@ -33,7 +30,7 @@ const featuredStory = {
     "Maya Patel began her journey with just a half-acre plot inherited from her family in rural Gujarat. With limited resources and no formal agricultural training, she faced numerous challenges including poor soil quality, unpredictable weather, and lack of market access. Determined to succeed, Maya researched organic farming techniques online and attended local workshops. She implemented sustainable practices like crop rotation, composting, and rainwater harvesting, which gradually improved her yields. To overcome financial hurdles, she secured a small loan and invested in a drip irrigation system, significantly reducing water costs. Maya then leveraged social media to market her organic vegetables directly to consumers, building a loyal customer base. Within three years, her business expanded to supply organic produce to supermarkets in three nearby cities, employing 15 local workers and inspiring other farmers in her community to adopt organic methods.",
 };
 
-const defaultThumbnails = [women1, women2, man1, man2];
+
 
 const SuccessStories = () => {
   const { user } = useContext(AuthContext);

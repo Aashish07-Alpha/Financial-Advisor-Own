@@ -63,7 +63,7 @@ const Testimonials = () => {
         }, 4000);
 
         return () => clearInterval(interval);
-    }, [isMobile, testimonials.length]);
+    }, [isMobile]);
 
     const handleCardClick = (index) => {
         if (!isMobile) {

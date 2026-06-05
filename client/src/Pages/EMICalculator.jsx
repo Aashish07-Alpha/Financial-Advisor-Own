@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import {
   PieChart,
   Pie,
@@ -24,11 +24,11 @@ const EMICalculator = () => {
     totalPayment: 0,
     yearlyBreakdown: [],
   });
-  const [language, setLanguage] = useState("en");
+  const [language] = useState("en");
   const [comparisonScenarios, setComparisonScenarios] = useState([]);
 
   // EMI Calculation with Detailed Breakdown
-  const calculateEMI = () => {
+  const calculateEMI = useCallback(() => {
     const P = principalAmount;
     const r = interestRate / 12 / 100;  // Monthly interest rate
     const n = loanTenure * 12;  // Total number of months
@@ -68,7 +68,11 @@ const EMICalculator = () => {
       totalPayment: Math.round(totalPayment),
       yearlyBreakdown: yearlyBreakdown
     });
-  };
+  }, [principalAmount, interestRate, loanTenure]);
+
+  useEffect(() => {
+    calculateEMI();
+  }, [calculateEMI]);
 
   // Add Comparison Scenario
   const addComparisonScenario = () => {
@@ -90,11 +94,6 @@ const EMICalculator = () => {
       comparisonScenarios.filter(scenario => scenario.id !== id)
     );
   };
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => {
-    calculateEMI();
-  }, [principalAmount, interestRate, loanTenure]);
 
   const chartData = [
     { name: "Principal Amount", value: principalAmount },
