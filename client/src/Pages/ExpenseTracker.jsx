@@ -8,6 +8,7 @@ import TransactionHistory from '../components/TransactionHistory';
 import AnalyticsDashboard from '../components/AnalyticsDashboard'; // Added import for AnalyticsDashboard
 
 const ExpenseTracker = () => {
+    const backendUrl = (process.env.REACT_APP_BACKEND_URL || 'http://localhost:8080').replace(/\/$/, "");
     const [transactions, setTransactions] = useState([]);
     const [stats, setStats] = useState(null);
     const [categories, setCategories] = useState([]);
@@ -33,9 +34,9 @@ const ExpenseTracker = () => {
         try {
             setLoading(true);
             const [transactionsRes, statsRes, categoriesRes] = await Promise.all([
-                fetch('/api/transactions'),
-                fetch('/api/transactions/stats'),
-                fetch('/api/transactions/categories')
+                fetch(`${backendUrl}/api/transactions`),
+                fetch(`${backendUrl}/api/transactions/stats`),
+                fetch(`${backendUrl}/api/transactions/categories`)
             ]);
 
             if (transactionsRes.ok) {
@@ -62,7 +63,7 @@ const ExpenseTracker = () => {
 
     const addTransaction = async (transactionData) => {
         try {
-            const response = await fetch('/api/transactions', {
+            const response = await fetch(`${backendUrl}/api/transactions`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -81,7 +82,7 @@ const ExpenseTracker = () => {
             setTransactions(prev => [newTransaction, ...prev]);
             
             // Refresh stats
-            const statsRes = await fetch('/api/transactions/stats');
+            const statsRes = await fetch(`${backendUrl}/api/transactions/stats`);
             if (statsRes.ok) {
                 const statsData = await statsRes.json();
                 setStats(statsData);
@@ -96,7 +97,7 @@ const ExpenseTracker = () => {
 
     const addReceiptTransaction = async (transactionData) => {
         try {
-            const response = await fetch('/api/transactions/receipt', {
+            const response = await fetch(`${backendUrl}/api/transactions/receipt`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -115,7 +116,7 @@ const ExpenseTracker = () => {
             setTransactions(prev => [newTransaction, ...prev]);
             
             // Refresh stats
-            const statsRes = await fetch('/api/transactions/stats');
+            const statsRes = await fetch(`${backendUrl}/api/transactions/stats`);
             if (statsRes.ok) {
                 const statsData = await statsRes.json();
                 setStats(statsData);
@@ -130,7 +131,7 @@ const ExpenseTracker = () => {
 
     const addMultipleTransactionsFromReceipt = async (transactionsData) => {
         try {
-            const response = await fetch('/api/transactions/receipt/batch', {
+            const response = await fetch(`${backendUrl}/api/transactions/receipt/batch`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -151,7 +152,7 @@ const ExpenseTracker = () => {
             setTransactions(prev => [...newTransactions, ...prev]);
             
             // Refresh stats
-            const statsRes = await fetch('/api/transactions/stats');
+            const statsRes = await fetch(`${backendUrl}/api/transactions/stats`);
             if (statsRes.ok) {
                 const statsData = await statsRes.json();
                 setStats(statsData);
@@ -166,7 +167,7 @@ const ExpenseTracker = () => {
 
     const deleteTransaction = async (id) => {
         try {
-            const response = await fetch(`/api/transactions/${id}`, {
+            const response = await fetch(`${backendUrl}/api/transactions/${id}`, {
                 method: 'DELETE',
             });
 
@@ -177,7 +178,7 @@ const ExpenseTracker = () => {
             setTransactions(prev => prev.filter(t => t._id !== id));
             
             // Refresh stats
-            const statsRes = await fetch('/api/transactions/stats');
+            const statsRes = await fetch(`${backendUrl}/api/transactions/stats`);
             if (statsRes.ok) {
                 const statsData = await statsRes.json();
                 setStats(statsData);

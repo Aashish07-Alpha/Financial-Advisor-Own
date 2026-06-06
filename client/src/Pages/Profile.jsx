@@ -62,7 +62,7 @@ const Profile = () => {
   const { user } = useAuthState();
   const [isEditing, setIsEditing] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://localhost:8080';
+  const backendUrl = (process.env.REACT_APP_BACKEND_URL || 'http://localhost:8080').replace(/\/$/, "");
   const [editedUser, setEditedUser] = useState({
     name: '',
     email: '',

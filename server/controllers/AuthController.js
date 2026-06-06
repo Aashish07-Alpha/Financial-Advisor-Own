@@ -23,11 +23,13 @@ exports.googleCallback = (req, res) => {
       maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
     });
     
+    const frontendUrl = (process.env.FRONTEND_URL || 'http://localhost:3000').replace(/\/$/, "");
     // Redirect to success page
-    res.redirect(`${process.env.FRONTEND_URL}/success-login?access_token=${token}`);
+    res.redirect(`${frontendUrl}/success-login?access_token=${token}`);
   } catch (error) {
     console.error('Error during Google callback:', error);
-    res.redirect(`${process.env.FRONTEND_URL}/login?error=login_failed`);
+    const frontendUrl = (process.env.FRONTEND_URL || 'http://localhost:3000').replace(/\/$/, "");
+    res.redirect(`${frontendUrl}/login?error=login_failed`);
   }
 };
 

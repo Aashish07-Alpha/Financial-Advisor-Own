@@ -32,7 +32,7 @@ const GovernmentSchemes = () => {
     setError("");
 
     try {
-      const backend_url = process.env.REACT_APP_BACKEND_URL || "http://localhost:8080";
+      const backend_url = (process.env.REACT_APP_BACKEND_URL || "http://localhost:8080").replace(/\/$/, "");
       const targetFilters = customFilters || filtersRef.current;
       const response = await axios.post(`${backend_url}/api/schemes`, targetFilters);
 

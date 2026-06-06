@@ -5,7 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { io } from 'socket.io-client';
 import AuthContext from '../Authorisation/AuthProvider';
 
-const API = process.env.REACT_APP_BACKEND_URL;
+const API = (process.env.REACT_APP_BACKEND_URL || 'http://localhost:8080').replace(/\/$/, "");
 
 // --- SOCKET.IO CLIENT SINGLETON ---
 let socket;

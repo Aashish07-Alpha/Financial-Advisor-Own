@@ -9,7 +9,7 @@ const Signup = () => {
   const navigate = useNavigate();
   const { login } = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(false);
-  const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://localhost:8080';
+  const backendUrl = (process.env.REACT_APP_BACKEND_URL || 'http://localhost:8080').replace(/\/$/, "");
   const [formData, setFormData] = useState({
     name: '',
     email: '',

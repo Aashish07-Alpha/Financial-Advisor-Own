@@ -11,7 +11,7 @@ const SuccessLogin = () => {
     const fetchUser = async () => {
       const params = new URLSearchParams(window.location.search);
       const token = params.get('access_token');
-      const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://localhost:8080';
+      const backendUrl = (process.env.REACT_APP_BACKEND_URL || 'http://localhost:8080').replace(/\/$/, "");
 
       if (!token) {
         return navigate('/login');

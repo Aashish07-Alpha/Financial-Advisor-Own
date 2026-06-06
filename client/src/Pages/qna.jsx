@@ -3,7 +3,7 @@ import { FaCalendarAlt, FaClock, FaUserTie, FaLink, FaTimes, FaCheckCircle, FaEx
 import AuthContext from '../Authorisation/AuthProvider';
 import dayjs from 'dayjs';
 
-const API_URL = process.env.REACT_APP_BACKEND_URL || "https://your-production-backend.com";
+const API_URL = (process.env.REACT_APP_BACKEND_URL || "http://localhost:8080").replace(/\/$/, "");
 
 const MEETING_TYPES = [
   { value: 'qna', label: 'Q&A', icon: <FaQuestionCircle />, color: 'green' },

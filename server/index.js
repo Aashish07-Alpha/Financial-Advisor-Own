@@ -10,6 +10,7 @@ const path = require("path");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const passport = require("passport");
+const session = require("express-session");
 
 
 // Environment variables are loaded from .env file
@@ -62,7 +63,9 @@ const allowedOrigins = [
   "https://financial-advisor-own-5x5f-ghqt9r9vk.vercel.app",
   "https://financial-advisor-own-git-ea6ae2-aashish-suryawanshis-projects.vercel.app",
   "https://financial-advisor-own.vercel.app",
+  "https://financial-advisor-own-5gjx.vercel.app",
   // Backend URLs (for API-to-API calls if needed)
+  "https://financial-advisor-own.onrender.com",
   "https://financial-advisor-own-5x5f.vercel.app",
   "https://financial-advisor-own-git-fresh-main-aashish-suryawanshis-projects.vercel.app",
   // Local development
@@ -71,6 +74,10 @@ const allowedOrigins = [
   "http://127.0.0.1:3000",
   "http://127.0.0.1:8080"
 ];
+
+if (process.env.FRONTEND_URL) {
+  allowedOrigins.push(process.env.FRONTEND_URL);
+}
 
 app.use(cors({
   origin: (origin, callback) => {
@@ -105,6 +112,18 @@ app.use(cookieParser());
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+
+// Session middleware required for Google OAuth state validation
+app.use(session({
+  secret: process.env.SESSION_SECRET || 'financial_advisor_session_secret_default',
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+    maxAge: 24 * 60 * 60 * 1000 // 24 hours
+  }
+}));
 
 // Passport middleware
 app.use(passport.initialize());
@@ -174,6 +193,14 @@ app.set('io', io);
 
 http.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
+  
+  const rawBackendUrl = process.env.BACKEND_URL || `http://localhost:${PORT}`;
+  const backendUrl = rawBackendUrl.replace(/\/$/, "");
+  console.log('Google Auth Configuration:', {
+    backendUrl: backendUrl,
+    googleAuthUrl: `${backendUrl}/api/auth/google`,
+    callbackUrl: process.env.GOOGLE_CALLBACK_URL || `${backendUrl}/api/auth/google/callback`
+  });
 });
 
 // Add error handling for unhandled errors

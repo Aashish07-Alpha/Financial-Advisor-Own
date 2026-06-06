@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { useAuthState } from "../hooks/useAuthState";
 import "../LandingPage/Hero/Hero.css";
 
-const backend_url = process.env.REACT_APP_BACKEND_URL || "http://localhost:8080";
+const backend_url = (process.env.REACT_APP_BACKEND_URL || "http://localhost:8080").replace(/\/$/, "");
 
 export default function FinancialAdvisorChatbotUi() {
   const { user, isAuthenticated } = useAuthState();

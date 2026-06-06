@@ -3,8 +3,8 @@ import women1 from "./women1.webp";
 import defaultStories from "./defaultStories";
 import toast, { Toaster } from "react-hot-toast";
 import AuthContext from '../Authorisation/AuthProvider';
-
-const API_URL = `${process.env.REACT_APP_BACKEND_URL}/api/success-stories`;
+const backendUrl = (process.env.REACT_APP_BACKEND_URL || 'http://localhost:8080').replace(/\/$/, "");
+const API_URL = `${backendUrl}/api/success-stories`;
 
 const avatarColors = [
   "bg-green-500",

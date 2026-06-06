@@ -7,7 +7,7 @@ import { useAuthState, setAuthState, clearAuthState } from "../hooks/useAuthStat
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://localhost:8080';
+  const backendUrl = (process.env.REACT_APP_BACKEND_URL || 'http://localhost:8080').replace(/\/$/, "");
 
   // Use the global auth state
   const globalState = useAuthState();

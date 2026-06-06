@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Upload, FileText, Image, File, X, CheckCircle, Loader2, Save } from 'lucide-react';
 
 const ReceiptUpload = ({ addReceiptTransaction, addMultipleTransactionsFromReceipt }) => {
+    const backendUrl = (process.env.REACT_APP_BACKEND_URL || 'http://localhost:8080').replace(/\/$/, "");
     const [selectedFile, setSelectedFile] = useState(null);
     const [isProcessing, setIsProcessing] = useState(false);
     const [processingStep, setProcessingStep] = useState('idle');
@@ -11,7 +12,7 @@ const ReceiptUpload = ({ addReceiptTransaction, addMultipleTransactionsFromRecei
     // Test file upload functionality
     const testFileUpload = async () => {
         try {
-            const response = await fetch('/api/transactions/test-upload');
+            const response = await fetch(`${backendUrl}/api/transactions/test-upload`);
             const result = await response.json();
             
             if (result.success) {
@@ -43,7 +44,7 @@ const ReceiptUpload = ({ addReceiptTransaction, addMultipleTransactionsFromRecei
             console.log('Uploading file:', selectedFile.name, selectedFile.size, selectedFile.type);
             
             // Upload file first
-            const uploadResponse = await fetch('/api/transactions/upload-receipt', {
+            const uploadResponse = await fetch(`${backendUrl}/api/transactions/upload-receipt`, {
                 method: 'POST',
                 body: formData
             });
@@ -62,7 +63,7 @@ const ReceiptUpload = ({ addReceiptTransaction, addMultipleTransactionsFromRecei
             const receiptUrl = uploadResult.receiptUrl;
 
             // Then process with Gemini AI
-            const processResponse = await fetch('/api/transactions/process-receipt-gemini', {
+            const processResponse = await fetch(`${backendUrl}/api/transactions/process-receipt-gemini`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

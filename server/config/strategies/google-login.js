@@ -2,11 +2,24 @@ const User = require('../../models/User');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 
 module.exports = (passport) => {
-  const callbackURL = process.env.GOOGLE_CALLBACK_URL || `${process.env.BACKEND_URL || 'http://localhost:8080'}/api/auth/google/callback`;
+  const rawBackendUrl = process.env.BACKEND_URL || 'http://localhost:8080';
+  const backendUrl = rawBackendUrl.replace(/\/$/, "");
+  const callbackURL = (process.env.GOOGLE_CALLBACK_URL || `${backendUrl}/api/auth/google/callback`).replace(/\/$/, "");
+
+  console.log('⚙️ Google Strategy configuration details:');
+  console.log('  - Raw Backend URL:', rawBackendUrl);
+  console.log('  - Normalized Backend URL:', backendUrl);
+  console.log('  - Configured Callback URL:', callbackURL);
+  console.log('  - Client ID status:', process.env.GOOGLE_CLIENT_ID ? 'SET' : 'NOT SET');
+  console.log('  - Client Secret status:', process.env.GOOGLE_CLIENT_SECRET ? 'SET' : 'NOT SET');
+
+  if (!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET) {
+    console.warn('⚠️ WARNING: Google Client ID or Secret is not configured. OAuth redirect may fail.');
+  }
 
   passport.use(new GoogleStrategy({
-    clientID: process.env.GOOGLE_CLIENT_ID,
-    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    clientID: process.env.GOOGLE_CLIENT_ID || 'placeholder-client-id',
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET || 'placeholder-client-secret',
     callbackURL
   }, async (accessToken, refreshToken, profile, done) => {
     try {

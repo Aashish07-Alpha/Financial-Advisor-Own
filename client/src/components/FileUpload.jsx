@@ -29,7 +29,7 @@ const FileUpload = ({ onOcrText, onFileChange, onError }) => {
     const formData = new FormData();
     formData.append('file', file);
 
-    const API_BASE = process.env.REACT_APP_BACKEND_URL || 'http://localhost:8080';
+    const API_BASE = (process.env.REACT_APP_BACKEND_URL || 'http://localhost:8080').replace(/\/$/, "");
 
     try {
       console.log('Uploading file:', file.name, 'Size:', file.size, 'Type:', file.type);

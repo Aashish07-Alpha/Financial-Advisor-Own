@@ -34,7 +34,7 @@ const VoiceNavigator = () => {
   const wakeWordRecognitionActive = useRef(false);
   const commandRecognitionActive = useRef(false);
   const isInitialized = useRef(false);
-  const backend_url = process.env.REACT_APP_BACKEND_URL || "http://localhost:8080";
+  const backend_url = (process.env.REACT_APP_BACKEND_URL || "http://localhost:8080").replace(/\/$/, "");
 
   // Wake word patterns
   const WAKE_WORDS = [
