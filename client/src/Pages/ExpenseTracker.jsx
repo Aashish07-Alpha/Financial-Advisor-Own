@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { BarChart3, Plus, Upload, History, Home, Menu, X } from 'lucide-react';
 import NavBar from '../components/NavBar';
 import Dashboard from '../components/Dashboard';
@@ -26,12 +26,7 @@ const ExpenseTracker = () => {
         { id: 'analytics', label: 'Analytics', icon: BarChart3, color: 'text-green-600' }
     ];
 
-    useEffect(() => {
-        fetchData();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
-
-    const fetchData = async () => {
+    const fetchData = useCallback(async () => {
         try {
             setLoading(true);
             const [transactionsRes, statsRes, categoriesRes] = await Promise.all([
@@ -60,7 +55,11 @@ const ExpenseTracker = () => {
         } finally {
             setLoading(false);
         }
-    };
+    }, [backendUrl]);
+
+    useEffect(() => {
+        fetchData();
+    }, [fetchData]);
 
     const addTransaction = async (transactionData) => {
         try {
