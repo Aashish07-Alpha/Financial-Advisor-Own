@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './Features.css'; // Import the CSS file for scoped styles
 
 const Features = ({ t }) => {
@@ -29,10 +30,10 @@ const Features = ({ t }) => {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {features.map((feature, index) => (
-            <a
-              href={feature.link}
+            <Link
+              to={feature.link}
               key={index}
-              className="group relative rounded-2xl transform transition-all duration-500 hover:scale-105 hover:-rotate-1"
+              className="group relative rounded-2xl transform transition-all duration-150 hover:scale-102"
             >
               {/* Enhanced multi-layered glow effect */}
               <div className="absolute inset-0 rounded-2xl">
@@ -77,7 +78,7 @@ const Features = ({ t }) => {
                   </span>
                 </div>
               </div>
-            </a>
+            </Link>
           ))}
         </div>
       </div>

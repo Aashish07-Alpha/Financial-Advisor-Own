@@ -166,11 +166,11 @@
   .group:not(.landing-why-choose .group) {
     /* Reset any landing page specific styles */
     transform: none !important;
-    transition: all 0.5s ease !important;
+    transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1) !important;
     animation: none !important;
     opacity: 1 !important;
   }
   
   .group:not(.landing-why-choose .group):hover {
-    transform: scale(1.05) rotate(-1deg) !important;
+    transform: scale(1.02) !important;
   }
