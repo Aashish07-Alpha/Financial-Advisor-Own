@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import FileUpload from '../components/FileUpload';
 import DocPreview from '../components/DocPreview';
 import ExtractedFields from '../components/ExtractedFields';
+import NavBar from '../components/NavBar';
 
 // Constants for production
 const POPUP_DURATION = 3000;
@@ -271,7 +272,8 @@ const DocOCR = () => {
 
   return (
     <OCRErrorBoundary>
-      <div className="min-h-screen bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50 flex flex-col items-center py-10 relative">
+      <NavBar />
+      <div className="min-h-screen bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50 flex flex-col items-center pt-24 pb-10 relative">
         {/* Custom styles */}
         <style>{customStyles}</style>
         

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import NavBar from '../components/NavBar';
 import { 
   ChevronRight, Store, Utensils, Scissors, 
   Leaf, Fish, Phone, Bike, Factory, 
@@ -761,7 +762,9 @@ const RuralBusinessOpportunities = () => {
   );
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-green-50 to-white relative overflow-hidden">
+    <>
+      <NavBar />
+      <div className="min-h-screen bg-gradient-to-br from-gray-50 via-green-50 to-white relative overflow-hidden pt-16">
       {/* Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-green-200 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob"></div>
@@ -926,7 +929,8 @@ const RuralBusinessOpportunities = () => {
           </div>
         </div>
       </footer>
-    </div>
+      </div>
+    </>
   );
 };
 

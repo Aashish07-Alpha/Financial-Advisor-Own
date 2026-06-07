@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Mic, User, Send, Loader2, Sparkles } from 'lucide-react';
 import SimpleIcons from '../components/SimpleIcons';
+import NavBar from '../components/NavBar';
 
 const Chatbot = () => {
   const [messages, setMessages] = useState([
@@ -132,7 +133,9 @@ const Chatbot = () => {
   };
 
   return (
-    <div className="flex-1 min-h-full max-w-3xl mx-auto p-1">
+    <>
+      <NavBar />
+      <div className="flex-1 min-h-full max-w-3xl mx-auto p-1 pt-20">
       <div className="bg-white rounded-lg shadow-md min-h-full flex flex-col overflow-hidden border border-green-200 relative group">
         {/* Animated background gradient */}
         <div className="absolute inset-0 bg-gradient-to-br from-green-50 via-white to-emerald-50 opacity-50 group-hover:opacity-75 transition-opacity duration-500"></div>
@@ -326,6 +329,7 @@ const Chatbot = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 

@@ -4,6 +4,7 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { io } from 'socket.io-client';
 import AuthContext from '../Authorisation/AuthProvider';
+import NavBar from '../components/NavBar';
 
 const API = (process.env.REACT_APP_BACKEND_URL || 'http://localhost:8080').replace(/\/$/, "");
 
@@ -312,8 +313,10 @@ const DiscussionForums = () => {
     );
   };
   return (
-    <div className="p-8 bg-gradient-to-br from-green-50 to-white min-h-screen">
-      <CommunityForm onCreate={handleCreate} userId={userId} />
+    <>
+      <NavBar />
+      <div className="pt-24 pb-8 px-8 bg-gradient-to-br from-green-50 to-white min-h-screen">
+        <CommunityForm onCreate={handleCreate} userId={userId} />
       <h1 className="text-5xl font-extrabold text-green-800 mb-12 text-center tracking-tight drop-shadow animate-fade-in">Discussion Forums</h1>
       <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-3 items-start">
         {/* Joined communities first */}
@@ -356,7 +359,8 @@ const DiscussionForums = () => {
           </div>
         </div>
       )}
-    </div>
+      </div>
+    </>
   );
 };
 

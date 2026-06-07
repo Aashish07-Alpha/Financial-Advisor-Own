@@ -3,6 +3,7 @@ import women1 from "./women1.webp";
 import defaultStories from "./defaultStories";
 import toast, { Toaster } from "react-hot-toast";
 import AuthContext from '../Authorisation/AuthProvider';
+import NavBar from '../components/NavBar';
 const backendUrl = (process.env.REACT_APP_BACKEND_URL || 'http://localhost:8080').replace(/\/$/, "");
 const API_URL = `${backendUrl}/api/success-stories`;
 
@@ -202,7 +203,9 @@ const SuccessStories = () => {
   });
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-100 via-white to-blue-100 relative overflow-x-hidden">
+    <>
+      <NavBar />
+      <div className="min-h-screen bg-gradient-to-br from-green-100 via-white to-blue-100 relative overflow-x-hidden pt-16">
       <Toaster position="top-right" />
       {/* Floating SVG background for extra visual effect */}
       <svg
@@ -272,7 +275,7 @@ const SuccessStories = () => {
             width: auto;
             height: auto;
             padding: 0.5rem 1.5rem;
-            top: 1.5rem;
+            top: 5rem;
             bottom: auto;
             right: 2rem;
             font-size: 1.25rem;
@@ -669,7 +672,8 @@ const SuccessStories = () => {
           }
         }
       `}</style>
-    </div>
+      </div>
+    </>
   );
 };
 

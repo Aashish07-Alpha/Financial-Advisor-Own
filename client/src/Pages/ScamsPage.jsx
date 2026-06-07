@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { scamsData } from './scamsdata.js';
 import './ScamsPage.css';
+import NavBar from '../components/NavBar';
 
 const ScamsPage = () => {
   const [expandedSections, setExpandedSections] = useState(new Set());
@@ -189,7 +190,9 @@ const ScamsPage = () => {
   }
 
   return (
-    <div className="scams-page">
+    <>
+      <NavBar />
+      <div className="scams-page" style={{ paddingTop: '84px' }}>
       {/* Particle Effects */}
       {showParticles && (
         <div className="particles-container">
@@ -407,6 +410,7 @@ const ScamsPage = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 

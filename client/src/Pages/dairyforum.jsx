@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import NavBar from '../components/NavBar';
 
 const DairyForumPage = () => {
   const [selectedLanguage, setSelectedLanguage] = useState('English');
@@ -85,7 +86,9 @@ const DairyForumPage = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 to-white">
+    <>
+      <NavBar />
+      <div className="min-h-screen bg-gradient-to-br from-green-50 to-white pt-16">
       <div className="max-w-4xl mx-auto p-6">
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
@@ -219,7 +222,8 @@ const DairyForumPage = () => {
           <p>This forum is monitored by AI to ensure quality discussions and prevent spam. Similar threads are automatically suggested to users.</p>
         </div>
       </div>
-    </div>
+      </div>
+    </>
   );
 };
 

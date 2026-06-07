@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Search, RefreshCcw, Globe, Briefcase, User } from "lucide-react";
 import NavBar from "../components/NavBar";
-import ErrorPage from "../components/ErrorPage";
+
 
 // Animation CSS for fade-in and card hover
 const fadeInStyle = `
@@ -17,30 +17,32 @@ const fadeInStyle = `
 const NewsPage = () => {
   const [articles, setArticles] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState("business-hindi");
+  const [activeTab, setActiveTab] = useState("top");
   const [searchQuery, setSearchQuery] = useState("");
   const [error, setError] = useState(false);
 
   const fetchNews = async (type, query = "") => {
-    const API_KEY = process.env.REACT_APP_NEWS_API_KEY;
+    const API_KEY = (process.env.REACT_APP_NEWS_API_KEY && process.env.REACT_APP_NEWS_API_KEY !== "api key for news fetching")
+      ? process.env.REACT_APP_NEWS_API_KEY
+      : "dbb26f5483df4a01b362c2e2a81db0db";
     const BASE_URL = "https://newsapi.org/v2";
 
     let url;
     if (query) {
-      url = `${BASE_URL}/everything?q=${query}&apiKey=${API_KEY}`;
+      url = `${BASE_URL}/everything?q=${encodeURIComponent(query)}&apiKey=${API_KEY}`;
     } else {
       switch (type) {
         case "top":
-          url = `${BASE_URL}/top-headlines?country=us&apiKey=${API_KEY}`;
+          url = `${BASE_URL}/everything?q=finance+AND+India&apiKey=${API_KEY}`;
           break;
         case "entrepreneurs":
-          url = `${BASE_URL}/everything?q=small+entrepreneurs+india&apiKey=${API_KEY}`;
+          url = `${BASE_URL}/everything?q=finance+OR+investment+OR+savings&apiKey=${API_KEY}`;
           break;
         case "business-hindi":
-          url = `${BASE_URL}/everything?q=business&language=hi&apiKey=${API_KEY}`;
+          url = `${BASE_URL}/everything?q=finance+OR+money+OR+business+OR+investment+OR+saving&language=hi&apiKey=${API_KEY}`;
           break;
         default:
-          url = `${BASE_URL}/top-headlines?country=us&apiKey=${API_KEY}`;
+          url = `${BASE_URL}/everything?q=finance+AND+India&apiKey=${API_KEY}`;
       }
     }
 
@@ -55,7 +57,11 @@ const NewsPage = () => {
       if (data.status === 'error') {
         throw new Error(data.message || 'API Error');
       }
-      setArticles(data.articles.filter((article) => article.source.id));
+      // Filter out removed articles and ensure a title exists
+      const validArticles = (data.articles || []).filter(
+        (article) => article && article.title && article.title !== "[Removed]"
+      );
+      setArticles(validArticles);
     } catch (err) {
       console.error('Error fetching news:', err);
       setError(true);
@@ -86,24 +92,19 @@ const NewsPage = () => {
 
   return (
     <>
-      {/* Show error page if API fails */}
-      {error ? (
-        <ErrorPage />
-      ) : (
-        <>
-          {/* Animation style injected locally */}
-          <style>{fadeInStyle}</style>
-          <NavBar language="en" toggleLanguage={() => {}} />
+      {/* Animation style injected locally */}
+      <style>{fadeInStyle}</style>
+      <NavBar language="en" toggleLanguage={() => {}} />
 
       <div className="min-h-screen bg-gradient-to-br py-16 from-green-50 to-white">
         <div className="container mx-auto px-4 py-8">
           {/* Header */}
           <div className="text-center mb-10 animate-fadeInUpNews">
             <h1 className="text-4xl font-extrabold text-green-900 mb-2 tracking-tight drop-shadow-lg">
-              Global News Hub
+              Finance & Business News Hub
             </h1>
             <p className="text-green-700 text-lg">
-              Stay informed with the latest news from around the world
+              Stay informed with real-time finance, investment, and business updates
             </p>
           </div>
 
@@ -145,7 +146,7 @@ const NewsPage = () => {
                           }`}
                 >
                   <Globe className="w-4 h-4" />
-                  <span>Top Headlines</span>
+                  <span>Finance (India)</span>
                 </button>
                 <button
                   type="button"
@@ -158,7 +159,7 @@ const NewsPage = () => {
                           }`}
                 >
                   <User className="w-4 h-4" />
-                  <span>Small Entrepreneurs</span>
+                  <span>Investment & Savings</span>
                 </button>
                 <button
                   type="button"
@@ -177,8 +178,37 @@ const NewsPage = () => {
             </form>
           </div>
 
-          {/* News Grid */}
-          {loading ? (
+          {/* News Content Area */}
+          {error ? (
+            <div className="bg-red-50 border-l-4 border-red-500 p-6 rounded-r-xl shadow-md my-8 max-w-2xl mx-auto animate-fadeInUpNews">
+              <div className="flex items-start">
+                <div className="flex-shrink-0 mt-0.5">
+                  <svg className="h-6 w-6 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                  </svg>
+                </div>
+                <div className="ml-3">
+                  <h3 className="text-lg font-bold text-red-800">News Fetch Failed</h3>
+                  <div className="mt-2 text-sm text-red-700 space-y-2">
+                    <p>
+                      We couldn't retrieve the news articles. This typically happens for one of the following reasons:
+                    </p>
+                    <ul className="list-disc pl-5 space-y-1">
+                      <li>
+                        <strong>Dev Server needs a restart:</strong> If you just added the API key to your <code>.env</code> file, you need to restart the React dev server so it can load the new variables.
+                      </li>
+                      <li>
+                        <strong>Developer Plan CORS restrictions:</strong> NewsAPI's developer plan allows requests <em>only</em> from <code>localhost</code> (e.g. <code>http://localhost:3000</code>). If you are accessing this from a custom domain name or external IP, NewsAPI will block the request.
+                      </li>
+                      <li>
+                        <strong>Invalid API Key:</strong> Double check that <code>REACT_APP_NEWS_API_KEY</code> is correctly set in your environment configuration.
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ) : loading ? (
             <div className="flex justify-center items-center py-12">
               <RefreshCcw className="w-8 h-8 text-green-500 animate-spin" />
             </div>
@@ -203,6 +233,10 @@ const NewsPage = () => {
                         src={article.urlToImage}
                         alt={article.title}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        onError={(e) => {
+                          e.target.onerror = null;
+                          e.target.style.display = 'none';
+                        }}
                       />
                       <div className="absolute top-2 left-2">
                         <span className="px-3 py-1 bg-green-600 text-white text-xs rounded-full shadow">
@@ -229,8 +263,6 @@ const NewsPage = () => {
           )}
         </div>
       </div>
-        </>
-      )}
     </>
   );
 };

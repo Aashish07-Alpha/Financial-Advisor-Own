@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { useAuthState } from "../hooks/useAuthState";
 import "../LandingPage/Hero/Hero.css";
+import NavBar from "../components/NavBar";
 
 const backend_url = (process.env.REACT_APP_BACKEND_URL || "http://localhost:8080").replace(/\/$/, "");
 
@@ -266,7 +267,9 @@ export default function FinancialAdvisorChatbotUi() {
   // Show login message if user is not authenticated
   if (!isAuthenticated || !user) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50 flex flex-col items-center justify-center">
+      <>
+        <NavBar />
+        <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50 flex flex-col items-center justify-center pt-16">
         <div className="bg-white rounded-2xl shadow-2xl border border-green-100 p-8 max-w-md mx-auto text-center">
           <h2 className="text-2xl font-bold text-green-800 mb-4">Login Required</h2>
           <p className="text-gray-600 mb-6">
@@ -280,11 +283,14 @@ export default function FinancialAdvisorChatbotUi() {
           </button>
         </div>
       </div>
+    </>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50 flex flex-col">
+    <>
+      <NavBar />
+      <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50 flex flex-col pt-16">
       {/* Hero Banner */}
       <div className="w-full py-8 px-4 md:px-0 flex flex-col items-center bg-gradient-to-r from-green-100 to-blue-100 border-b border-green-200">
         <h1 className="text-4xl md:text-5xl font-extrabold text-green-800 mb-1 text-center">Financial Advisor</h1>
@@ -527,6 +533,7 @@ export default function FinancialAdvisorChatbotUi() {
           </div>
         );
       })()}
-    </div>
+      </div>
+    </>
   );
 }

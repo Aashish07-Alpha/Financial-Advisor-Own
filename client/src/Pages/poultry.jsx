@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Heart, Sprout, ScaleIcon, ArrowRight, ChevronDown, ChevronUp, DollarSign, Shield, Workflow, Building, Bird, LineChart, AlertTriangle, Info, Target, Leaf, Hammer } from 'lucide-react';
+import NavBar from '../components/NavBar';
 
 const PoultryFarmGuide = () => {
   const [activeSection, setActiveSection] = useState('overview');
@@ -866,7 +867,9 @@ const PoultryFarmGuide = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 to-white relative overflow-hidden">
+    <>
+      <NavBar />
+      <div className="min-h-screen bg-gradient-to-br from-green-50 to-white relative overflow-hidden pt-16">
       <div className="max-w-7xl mx-auto p-6">
         <div className="text-center mb-12 relative">
          
@@ -908,7 +911,8 @@ const PoultryFarmGuide = () => {
           </div>
         </div>
       </div>
-    </div>
+      </div>
+    </>
   );
 };
 

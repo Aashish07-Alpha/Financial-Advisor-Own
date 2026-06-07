@@ -38,6 +38,7 @@ import LandingPage from "./LandingPage/Landingpage";
 
 import ExpenseTracker from "./Pages/ExpenseTracker"; // Adjust the path based on your file structure
 import ScamsPage from "./Pages/ScamsPage";
+import NavBar from "./components/NavBar";
 
 
 function App() {
@@ -102,7 +103,7 @@ function App() {
          <Route path="/expenses" element={<ProtectedRoute><ExpenseTracker /></ProtectedRoute>} />
 
          <Route path="/scams" element={<ProtectedRoute><ScamsPage /></ProtectedRoute>} />
-         <Route path="/meetings" element={<ProtectedRoute><div className="p-8 text-center"><h1 className="text-2xl font-bold mb-4">Schedule a Meeting</h1><p>Meeting scheduling feature coming soon!</p></div></ProtectedRoute>} />
+         <Route path="/meetings" element={<ProtectedRoute><div className="pt-24 p-8 text-center"><NavBar /><h1 className="text-2xl font-bold mb-4">Schedule a Meeting</h1><p>Meeting scheduling feature coming soon!</p></div></ProtectedRoute>} />
 
         <Route path="*" element={<ErrorPage />} />
       </Routes>

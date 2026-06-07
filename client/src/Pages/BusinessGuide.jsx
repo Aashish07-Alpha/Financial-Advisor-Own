@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import NavBar from '../components/NavBar';
 import { 
   Map, BookCheck, TrendingUp, Heart, Sprout, ScaleIcon, 
   ArrowRight, ChevronDown, ChevronUp, DollarSign, Shield, 
@@ -1278,7 +1279,9 @@ const BusinessGuide = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 to-white relative overflow-hidden">
+    <>
+      <NavBar />
+      <div className="min-h-screen bg-gradient-to-br from-green-50 to-white relative overflow-hidden pt-16">
       <div className="max-w-7xl mx-auto p-6">
         <div className="text-center mb-12 relative">
           <div className="relative z-10">
@@ -1319,7 +1322,8 @@ const BusinessGuide = () => {
           </div>
         </div>
       </div>
-    </div>
+      </div>
+    </>
   );
 };
 

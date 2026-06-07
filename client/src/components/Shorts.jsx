@@ -6,7 +6,9 @@ import {
   ThumbsUp,
   MessageCircle,
   Share2,
+  ArrowLeft
 } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const TOPICS = [
   "Business tips",
@@ -20,6 +22,7 @@ const TOPICS = [
 const YOUTUBE_API_KEY = process.env.REACT_APP_YOUTUBE_API_KEY;
 
 const YouTubeShorts = () => {
+  const navigate = useNavigate();
   const [shorts, setShorts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -240,7 +243,15 @@ const YouTubeShorts = () => {
   }
 
   return (
-    <div className="flex justify-center w-full">
+    <div className="flex justify-center w-full relative">
+      {/* Floating Back Button */}
+      <button 
+        onClick={() => navigate('/financialAdvisior')} 
+        className="fixed top-4 left-4 z-50 p-3 bg-white/80 hover:bg-white text-green-800 rounded-full shadow-lg backdrop-blur-sm transition-all duration-300 hover:scale-110 flex items-center justify-center cursor-pointer border border-green-100"
+        aria-label="Go Back"
+      >
+        <ArrowLeft className="w-6 h-6" />
+      </button>
       <div className="w-96 h-screen relative">
         {shorts.map((short, index) => (
           <div

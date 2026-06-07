@@ -4,6 +4,7 @@ import {
    PiggyBank, Smartphone, Store, Globe,
   Tractor, Coins
 } from 'lucide-react';
+import NavBar from '../components/NavBar';
 
 const MicroinvestmentPlatform = () => {
   const [selectedCategory, setSelectedCategory] = useState('all');
@@ -189,19 +190,21 @@ const MicroinvestmentPlatform = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 via-white to-green-50">
-      {/* Language Switcher */}
-      <div className="fixed top-4 right-4 z-50">
-        <button 
-          onClick={() => setLanguage(language === 'hi' ? 'en' : 'hi')}
-          className="flex items-center space-x-2 bg-white px-4 py-2 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 border border-green-100"
-        >
-          <Globe className="w-4 h-4 text-green-600" />
-          <span className="text-green-600 font-medium">
-            {language === 'hi' ? 'English' : 'हिंदी'}
-          </span>
-        </button>
-      </div>
+    <>
+      <NavBar />
+      <div className="min-h-screen bg-gradient-to-br from-green-50 via-white to-green-50 pt-16">
+        {/* Language Switcher */}
+        <div className="fixed top-20 right-4 z-40">
+          <button 
+            onClick={() => setLanguage(language === 'hi' ? 'en' : 'hi')}
+            className="flex items-center space-x-2 bg-white px-4 py-2 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 border border-green-100"
+          >
+            <Globe className="w-4 h-4 text-green-600" />
+            <span className="text-green-600 font-medium">
+              {language === 'hi' ? 'English' : 'हिंदी'}
+            </span>
+          </button>
+        </div>
 
       {/* Rest of the component structure remains the same, just update the content references */}
       <div className="relative overflow-hidden bg-gradient-to-br from-green-100 via-white to-green-50">
@@ -323,7 +326,8 @@ const MicroinvestmentPlatform = () => {
           </div>
         </div>
       </footer>
-    </div>
+      </div>
+    </>
   );
 };
 
