@@ -22,28 +22,13 @@ const NewsPage = () => {
   const [error, setError] = useState(false);
 
   const fetchNews = async (type, query = "") => {
-    const API_KEY = (process.env.REACT_APP_NEWS_API_KEY && process.env.REACT_APP_NEWS_API_KEY !== "api key for news fetching")
-      ? process.env.REACT_APP_NEWS_API_KEY
-      : "dbb26f5483df4a01b362c2e2a81db0db";
-    const BASE_URL = "https://newsapi.org/v2";
+    const backend_url = (process.env.REACT_APP_BACKEND_URL || "http://localhost:8080").replace(/\/$/, "");
 
     let url;
     if (query) {
-      url = `${BASE_URL}/everything?q=${encodeURIComponent(query)}&apiKey=${API_KEY}`;
+      url = `${backend_url}/api/news?query=${encodeURIComponent(query)}`;
     } else {
-      switch (type) {
-        case "top":
-          url = `${BASE_URL}/everything?q=finance+AND+India&apiKey=${API_KEY}`;
-          break;
-        case "entrepreneurs":
-          url = `${BASE_URL}/everything?q=finance+OR+investment+OR+savings&apiKey=${API_KEY}`;
-          break;
-        case "business-hindi":
-          url = `${BASE_URL}/everything?q=finance+OR+money+OR+business+OR+investment+OR+saving&language=hi&apiKey=${API_KEY}`;
-          break;
-        default:
-          url = `${BASE_URL}/everything?q=finance+AND+India&apiKey=${API_KEY}`;
-      }
+      url = `${backend_url}/api/news?type=${type}`;
     }
 
     setLoading(true);

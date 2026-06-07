@@ -50,6 +50,7 @@ const meetingsRoutes = require('./routes/meetings');
 const authRoutes = require('./routes/authRoutes');
 const voiceNavigationRoutes = require('./routes/voiceNavigation');
 const { router: voiceAnalyticsRoutes } = require('./routes/voiceAnalytics');
+const newsRoutes = require('./routes/news');
 
 const app = express();
 const http = require('http').createServer(app);
@@ -141,6 +142,7 @@ app.use('/api/transactions', transactionsRouter);
 app.use('/api/meetings', meetingsRoutes);
 app.use('/api/voice-navigation', voiceNavigationRoutes);
 app.use('/api/voice-analytics', voiceAnalyticsRoutes);
+app.use('/api/news', newsRoutes);
 
 // Root route
 app.get("/", (req, res) => {
